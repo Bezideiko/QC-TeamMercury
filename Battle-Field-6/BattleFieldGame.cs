@@ -7,33 +7,29 @@ namespace BattleFieldNamespace
 {
     class BattleField
     {
-        public Boolean proverka(int inputNumber)
-        {
-            if ((inputNumber < 1) || (inputNumber > 10))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+        //tova e igrata
+        //znam che vsichko e na edno ama taka e po lesno
+        //public Boolean InputCheck(int inputNumber)
+        //{
+        //    if ((inputNumber > 0) && (inputNumber < 10))
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        public int ReadCellsNumber()
+        public int InputFieldSize()
         {
-            string readThings;
             int readNumber;
-            do
+            Console.WriteLine("Please enter an integer - field size (0 < N <= 10): ");
+            
+            while (!int.TryParse(Console.ReadLine(), out readNumber) || readNumber <= 0 || readNumber > 10)
             {
-                Console.Write("Please Enter Valid Size Of The Field.n=");
-                readThings = Console.ReadLine();
-
-                if (!(Int32.TryParse(readThings, out readNumber)))
-                {
-                    readNumber = -1;
-                }
+                Console.WriteLine("The input is wrong. Please enter an integer - field size (0 < N <= 10): ");
             }
-            while (!(proverka(readNumber)));
 
             return readNumber;
         }
@@ -43,15 +39,16 @@ namespace BattleFieldNamespace
 
         public void CreateBattleTable()
         {
-            n = ReadCellsNumber();
+            n = InputFieldSize();
 
             Field = new string[n, n];
             for (int i = 0; i <= n - 1; i++)
-
+            {
                 for (int j = 0; j <= n - 1; j++)
                 {
                     Field[i, j] = "-";
                 }
+            }
         }
 
         private static int RandomNumber(int min, int max)
@@ -73,7 +70,7 @@ namespace BattleFieldNamespace
 
                 if (Field[row, column] == "-")
                 {
-                    Field[row, column] = Convert.ToString(RandomNumber(1, 5));
+                    Field[row, column] = Convert.ToString(RandomNumber(1, 6));
                     countOfNumberedCells++;
 
                     if (countOfNumberedCells >= 0.15 * n * n)
@@ -92,10 +89,11 @@ namespace BattleFieldNamespace
 
         public void BombOne(int row, int column)
         {
-            Field[row, column] = "X"; killedNumbers++;
+            Field[row, column] = "X";
+            killedNumbers++;
             if ((row - 1 >= 0) && (column - 1 >= 0))
             {
-                if ((Field[row - 1, column - 1] != "X") && (Field[row - 1, column - 1] != "-"))
+                if (Field[row - 1, column - 1] != "X")
                 {
                     killedNumbers++;
                     Field[row - 1, column - 1] = "X";
@@ -104,7 +102,7 @@ namespace BattleFieldNamespace
 
             if ((row + 1 <= n - 1) && (column - 1 >= 0))
             {
-                if ((Field[row + 1, column - 1] != "X") && (Field[row + 1, column - 1] != "-"))
+                if (Field[row + 1, column - 1] != "X")
                 {
                     killedNumbers++;
                     Field[row + 1, column - 1] = "X";
@@ -113,7 +111,7 @@ namespace BattleFieldNamespace
 
             if ((row - 1 >= 0) && (column + 1 <= n - 1))
             {
-                if ((Field[row - 1, column + 1] != "X") && (Field[row - 1, column + 1] != "-"))
+                if (Field[row - 1, column + 1] != "X")
                 {
                     killedNumbers++;
                     Field[row - 1, column + 1] = "X";
@@ -122,7 +120,7 @@ namespace BattleFieldNamespace
 
             if ((row + 1 <= n - 1) && (column + 1 <= n - 1))
             {
-                if ((Field[row + 1, column + 1] != "X") && (Field[row + 1, column + 1] != "-"))
+                if (Field[row + 1, column + 1] != "X")
                 {
                     killedNumbers++;
                     Field[row + 1, column + 1] = "X";
@@ -136,7 +134,7 @@ namespace BattleFieldNamespace
 
             if (row - 1 >= 0)
             {
-                if ((Field[row - 1, column] != "X") && (Field[row - 1, column] != "-"))
+                if (Field[row - 1, column] != "X")
                 {
                     killedNumbers++;
                     Field[row - 1, column] = "X";
@@ -145,7 +143,7 @@ namespace BattleFieldNamespace
 
             if (column - 1 >= 0)
             {
-                if ((Field[row, column - 1] != "X") && (Field[row, column - 1] != "-"))
+                if (Field[row, column - 1] != "X")
                 {
                     killedNumbers++;
                     Field[row, column - 1] = "X";
@@ -154,7 +152,7 @@ namespace BattleFieldNamespace
 
             if (column + 1 <= n - 1)
             {
-                if ((Field[row, column + 1] != "X") && (Field[row, column + 1] != "-"))
+                if (Field[row, column + 1] != "X")
                 {
                     killedNumbers++;
                     Field[row, column + 1] = "X";
@@ -163,7 +161,7 @@ namespace BattleFieldNamespace
 
             if (row + 1 <= n - 1)
             {
-                if ((Field[row + 1, column] != "X") && (Field[row + 1, column] != "-"))
+                if (Field[row + 1, column] != "X")
                 {
                     killedNumbers++;
                     Field[row + 1, column] = "X";
@@ -177,7 +175,7 @@ namespace BattleFieldNamespace
 
             if (row - 2 >= 0)
             {
-                if ((Field[row - 2, column] != "X") && (Field[row - 2, column] != "-"))
+                if (Field[row - 2, column] != "X")
                 {
                     killedNumbers++;
                     Field[row - 2, column] = "X";
@@ -186,7 +184,7 @@ namespace BattleFieldNamespace
 
             if (column - 2 >= 0)
             {
-                if ((Field[row, column - 2] != "X") && (Field[row, column - 2] != "-"))
+                if (Field[row, column - 2] != "X")
                 {
                     killedNumbers++;
                     Field[row, column - 2] = "X";
@@ -195,7 +193,7 @@ namespace BattleFieldNamespace
 
             if (column + 2 <= n - 1)
             {
-                if ((Field[row, column + 2] != "X") && (Field[row, column + 2] != "-"))
+                if (Field[row, column + 2] != "X")
                 {
                     killedNumbers++;
                     Field[row, column + 2] = "X";
@@ -204,7 +202,7 @@ namespace BattleFieldNamespace
 
             if (row + 2 <= n - 1)
             {
-                if ((Field[row + 2, column] != "X") && (Field[row + 2, column] != "-"))
+                if (Field[row + 2, column] != "X")
                 {
                     killedNumbers++;
                     Field[row + 2, column] = "X";
@@ -212,13 +210,13 @@ namespace BattleFieldNamespace
             }
         }
 
-        public void NekaGyrmi4(int row, int column)
+        public void BombFour(int row, int column)
         {
             BombThree(row, column);
 
             if ((row - 1 >= 0) && (column - 2 >= 0))
             {
-                if ((Field[row - 1, column - 2] != "X") && (Field[row - 1, column - 2] != "-"))
+                if (Field[row - 1, column - 2] != "X")
                 {
                     killedNumbers++;
                     Field[row - 1, column - 2] = "X";
@@ -227,7 +225,7 @@ namespace BattleFieldNamespace
 
             if ((row + 1 <= n - 1) && (column - 2 >= 0))
             {
-                if ((Field[row + 1, column - 2] != "X") && (Field[row + 1, column - 2] != "-"))
+                if (Field[row + 1, column - 2] != "X")
                 {
                     killedNumbers++;
                     Field[row + 1, column - 2] = "X";
@@ -236,7 +234,7 @@ namespace BattleFieldNamespace
 
             if ((row - 2 >= 0) && (column - 1 >= 0))
             {
-                if ((Field[row - 2, column - 1] != "X") && (Field[row - 2, column - 1] != "-"))
+                if (Field[row - 2, column - 1] != "X")
                 {
                     killedNumbers++;
                     Field[row - 2, column - 1] = "X";
@@ -245,7 +243,7 @@ namespace BattleFieldNamespace
 
             if ((row + 2 <= n - 1) && (column - 1 >= 0))
             {
-                if ((Field[row + 2, column - 1] != "X") && (Field[row + 2, column - 1] != "-"))
+                if (Field[row + 2, column - 1] != "X")
                 {
                     killedNumbers++;
                     Field[row + 2, column - 1] = "X";
@@ -254,7 +252,7 @@ namespace BattleFieldNamespace
 
             if ((row - 1 >= 0) && (column + 2 <= n - 1))
             {
-                if ((Field[row - 1, column + 2] != "X") && (Field[row - 1, column + 2] != "-"))
+                if (Field[row - 1, column + 2] != "X")
                 {
                     killedNumbers++;
                     Field[row - 1, column + 2] = "X";
@@ -263,7 +261,7 @@ namespace BattleFieldNamespace
 
             if ((row + 1 <= n - 1) && (column + 2 <= n - 1))
             {
-                if ((Field[row + 1, column + 2] != "X") && (Field[row + 1, column + 2] != "-"))
+                if (Field[row + 1, column + 2] != "X")
                 {
                     killedNumbers++;
                     Field[row + 1, column + 2] = "X";
@@ -272,7 +270,7 @@ namespace BattleFieldNamespace
 
             if ((row - 2 >= 0) && (column + 1 <= n - 1))
             {
-                if ((Field[row - 2, column + 1] != "X") && (Field[row - 2, column + 1] != "-"))
+                if (Field[row - 2, column + 1] != "X")
                 {
                     killedNumbers++;
                     Field[row - 2, column + 1] = "X";
@@ -281,7 +279,7 @@ namespace BattleFieldNamespace
 
             if ((row + 2 <= n - 1) && (column + 1 <= n - 1))
             {
-                if ((Field[row + 2, column + 1] != "X") && (Field[row + 2, column + 1] != "-"))
+                if (Field[row + 2, column + 1] != "X")
                 {
                     killedNumbers++;
                     Field[row + 2, column + 1] = "X";
@@ -291,11 +289,11 @@ namespace BattleFieldNamespace
 
         public void BombFive(int row, int column)
         {
-            NekaGyrmi4(row, column);
+            BombFour(row, column);
 
             if ((row - 2 >= 0) && (column - 2 >= 0))
             {
-                if ((Field[row - 2, column - 2] != "X") && (Field[row - 2, column - 2] != "-"))
+                if (Field[row - 2, column - 2] != "X")
                 {
                     killedNumbers++;
                     Field[row - 2, column - 2] = "X";
@@ -304,7 +302,7 @@ namespace BattleFieldNamespace
 
             if ((row + 2 <= n - 1) && (column - 2 >= 0))
             {
-                if ((Field[row + 2, column - 2] != "X") && (Field[row + 2, column - 2] != "-"))
+                if (Field[row + 2, column - 2] != "X")
                 {
                     killedNumbers++;
                     Field[row + 2, column - 2] = "X";
@@ -313,7 +311,7 @@ namespace BattleFieldNamespace
 
             if ((row - 2 >= 0) && (column + 2 <= n - 1))
             {
-                if ((Field[row - 2, column + 2] != "X") && (Field[row - 2, column + 2] != "-"))
+                if (Field[row - 2, column + 2] != "X")
                 {
                     killedNumbers++;
                     Field[row - 2, column + 2] = "X";
@@ -322,7 +320,7 @@ namespace BattleFieldNamespace
 
             if ((row + 2 <= n - 1) && (column + 2 <= n - 1))
             {
-                if ((Field[row + 2, column + 2] != "X") && (Field[row + 2, column + 2] != "-"))
+                if (Field[row + 2, column + 2] != "X")
                 {
                     killedNumbers++;
                     Field[row + 2, column + 2] = "X";
@@ -365,7 +363,7 @@ namespace BattleFieldNamespace
             }
         }
 
-        int izgyrmqniBombi = 0;
+        int detonatedBombs = 0;
 
         public void MineCell(int row, int column)
         {
@@ -384,35 +382,34 @@ namespace BattleFieldNamespace
             {
                 case 1:
                     {
-                        BombOne(row, column); ViewTable(); izgyrmqniBombi++; break;
+                        BombOne(row, column); ViewTable(); detonatedBombs++; break;
                     }
-                    ;
+                    
                 case 2:
                     {
-                        BombTwo(row, column); ViewTable(); izgyrmqniBombi++; break;
+                        BombTwo(row, column); ViewTable(); detonatedBombs++; break;
                     }
-                    ;
+                    
                 case 3:
                     {
-                        BombThree(row, column); ViewTable(); izgyrmqniBombi++; break;
+                        BombThree(row, column); ViewTable(); detonatedBombs++; break;
                     }
-                    ;
+                    
                 case 4:
                     {
-                        NekaGyrmi4(row, column); ViewTable(); izgyrmqniBombi++; break;
+                        BombFour(row, column); ViewTable(); detonatedBombs++; break;
                     }
-                    ;
+                    
                 case 5:
                     {
-                        BombFive(row, column); ViewTable(); izgyrmqniBombi++; break;
+                        BombFive(row, column); ViewTable(); detonatedBombs++; break;
                     }
-                    ;
+                    
 
                 default:
                     {
                         InvalidMove(); break;
                     }
-                    ;
             }
         }
 
@@ -478,10 +475,10 @@ namespace BattleFieldNamespace
                 else
                 {
                     MineCell(row, column);
-                };
+                }
             }
 
-            Console.WriteLine("Game Over.Detonated Mines {0}", izgyrmqniBombi);
+            Console.WriteLine("Game Over.Detonated Mines {0}", detonatedBombs);
         }
 
         static void Main(string[] args)
