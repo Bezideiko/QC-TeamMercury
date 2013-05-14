@@ -7,8 +7,6 @@ namespace BattleFieldNamespace
 {
     class BattleField
     {
-        //tova e igrata
-        //znam che vsichko e na edno ama taka e po lesno
         public Boolean proverka(int inputNumber)
         {
             if ((inputNumber < 1) || (inputNumber > 10))
