@@ -109,7 +109,7 @@ namespace BattleFieldNamespace
                 }
             }
 
-            Console.WriteLine("Game Over.Detonated Mines {0}", this.battleField.DetonatedBombs);
+            Console.WriteLine("Game Over. Detonated Mines: {0}", this.battleField.DetonatedBombs);
         }
 
         static void Main(string[] args)

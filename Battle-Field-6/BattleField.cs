@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -9,7 +8,7 @@ namespace BattleFieldNamespace
     {
         private string[,] gameField;
 
-        private int gameFieldSize;
+        private readonly int gameFieldSize;
 
         private int removedBombsCount = 0;
 
