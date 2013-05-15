@@ -64,7 +64,14 @@ namespace BattleFieldNamespace
             }
         }
 
-        internal void CreateBattleTable()
+        public void InitilizeBattleField()
+        {
+            this.InitializeEmptyBattleField();
+
+            this.GenerateRandomBattleField();
+        }
+
+        private  void InitializeEmptyBattleField()
         {
             gameField = new string[gameFieldSize, gameFieldSize];
             for (int i = 0; i <= gameFieldSize - 1; i++)
@@ -83,7 +90,7 @@ namespace BattleFieldNamespace
         }
 
 
-        public void FillInTheFields()
+        private void GenerateRandomBattleField()
         {
             int row;
             int column;
@@ -102,7 +109,7 @@ namespace BattleFieldNamespace
 
                     if (bombsAdded >= 0.15 * gameFieldSize * gameFieldSize)
                     {
-                        int stopFilling = RandomNumber(0, 1);
+                        int stopFilling = RandomNumber(0, 2);
                         if (stopFilling == 1)
                         {
                             break;

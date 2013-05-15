@@ -28,7 +28,8 @@ namespace BattleFieldNamespace
         private static int InputFieldSize()
         {
             int readNumber;
-            Console.Write("Please enter an integer - field size (0 < N <= 10): ");
+            Console.WriteLine("Welcome to \"Battle Field\" game!");
+            Console.Write("Enter battle field size (no more than 10): n = ");
             
             while (!int.TryParse(Console.ReadLine(), out readNumber) || readNumber <= 0 || readNumber > 10)
             {
@@ -57,59 +58,71 @@ namespace BattleFieldNamespace
 
         public void GameSession()
         {
-            this.battleField.CreateBattleTable();
-
-            this.battleField.FillInTheFields();
+            this.battleField.InitilizeBattleField();
 
             Console.WriteLine(this.battleField.ToString());
 
             while (!(IsOver()))
             {
-                Console.Write("Please Enter Coordinates : ");
-
-                string inputRowAndColumn = Console.ReadLine();
-                string[] rowAndColumnSplit = inputRowAndColumn.Split(' ');
-                int row;
-                int column;
-
-                if ((rowAndColumnSplit.Length) <= 1)
-                {
-                    row = -1; 
-                    column = -1;
-                }
-                else
-                {
-                    if (!(int.TryParse(rowAndColumnSplit[0], out row)))
-                    {
-                        row = -1;
-                    }
-
-                    if (!(int.TryParse(rowAndColumnSplit[1], out column)))
-                    {
-                        column = -1;
-                    }
-                }
-
-                if ((IsOutOfRangeCoordinates(row, column)))
-                {
-                    Console.WriteLine("This Move Is Out Of Area.");
-                }
-                else
-                {
-                    bool isExplosionSuccessfull = this.battleField.MineCell(row, column);
-
-                    if (isExplosionSuccessfull)
-                    {
-                        Console.WriteLine(this.battleField.ToString());
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid move!");
-                    }
-                }
+                PlayBattleField();
             }
 
             Console.WriteLine("Game Over. Detonated Mines: {0}", this.battleField.DetonatedBombs);
+        }
+  
+        private void PlayBattleField()
+        {
+            bool isCorrectUserInput = this.ReadUserInput();
+
+            int row;
+            int column;
+
+            Console.Write("Please Enter Coordinates: ");
+
+            string inputRowAndColumn = Console.ReadLine();
+            string[] rowAndColumnSplit = inputRowAndColumn.Split(' ');
+
+
+            if ((rowAndColumnSplit.Length) <= 1)
+            {
+                row = -1; 
+                column = -1;
+            }
+            else
+            {
+                if (!(int.TryParse(rowAndColumnSplit[0], out row)))
+                {
+                    row = -1;
+                }
+
+                if (!(int.TryParse(rowAndColumnSplit[1], out column)))
+                {
+                    column = -1;
+                }
+            }
+
+            if ((IsOutOfRangeCoordinates(row, column)))
+            {
+                Console.WriteLine("This Move Is Out Of Area.");
+            }
+            else
+            {
+                bool isExplosionSuccessfull = this.battleField.MineCell(row, column);
+
+                if (isExplosionSuccessfull)
+                {
+                    Console.WriteLine(this.battleField.ToString());
+                }
+                else
+                {
+                    Console.WriteLine("Invalid move!");
+                }
+            }
+        }
+
+        private bool ReadUserInput()
+        {
+            return true;
         }
 
         static void Main(string[] args)
