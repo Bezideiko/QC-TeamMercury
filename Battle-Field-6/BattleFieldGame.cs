@@ -57,13 +57,13 @@ namespace BattleFieldNamespace
             return Convert.ToInt32(random.Next(min, max));
         }
 
-        int countOfNumberedCells = 0;
+        int loadedBombCount = 0;
 
         public void FillInTheFields()
         {
             int row;
             int column;
-            while (countOfNumberedCells + 1 <= 0.3 * n * n)
+            while (loadedBombCount + 1 <= 0.3 * n * n)
             {
                 row = RandomNumber(0, n - 1);
                 column = RandomNumber(0, n - 1);
@@ -71,9 +71,9 @@ namespace BattleFieldNamespace
                 if (Field[row, column] == "-")
                 {
                     Field[row, column] = Convert.ToString(RandomNumber(1, 6));
-                    countOfNumberedCells++;
+                    loadedBombCount++;
 
-                    if (countOfNumberedCells >= 0.15 * n * n)
+                    if (loadedBombCount >= 0.15 * n * n)
                     {
                         int stopFilling = RandomNumber(0, 1);
                         if (stopFilling == 1)
@@ -93,38 +93,38 @@ namespace BattleFieldNamespace
             killedNumbers++;
             if ((row - 1 >= 0) && (column - 1 >= 0))
             {
-                if (Field[row - 1, column - 1] != "X")
+                if (Field[row - 1, column - 1] != "X" && Field[row - 1, column - 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 1, column - 1] = "X";
-                }                    
+                }
+                Field[row - 1, column - 1] = "X";
             }
 
             if ((row + 1 <= n - 1) && (column - 1 >= 0))
             {
-                if (Field[row + 1, column - 1] != "X")
+                if (Field[row + 1, column - 1] != "X" && Field[row + 1, column - 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 1, column - 1] = "X";
                 }
+                Field[row + 1, column - 1] = "X";
             }
 
             if ((row - 1 >= 0) && (column + 1 <= n - 1))
             {
-                if (Field[row - 1, column + 1] != "X")
+                if (Field[row - 1, column + 1] != "X" && Field[row - 1, column + 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 1, column + 1] = "X";
                 }
+                Field[row - 1, column + 1] = "X";
             }
 
             if ((row + 1 <= n - 1) && (column + 1 <= n - 1))
             {
-                if (Field[row + 1, column + 1] != "X")
+                if (Field[row + 1, column + 1] != "X" && Field[row + 1, column + 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 1, column + 1] = "X";
                 }
+                Field[row + 1, column + 1] = "X";
             }
         }
 
@@ -134,38 +134,38 @@ namespace BattleFieldNamespace
 
             if (row - 1 >= 0)
             {
-                if (Field[row - 1, column] != "X")
+                if (Field[row - 1, column] != "X" && Field[row - 1, column] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 1, column] = "X";
                 }
+                Field[row - 1, column] = "X";
             }
 
             if (column - 1 >= 0)
             {
-                if (Field[row, column - 1] != "X")
+                if (Field[row, column - 1] != "X" && Field[row, column - 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row, column - 1] = "X";
                 }
+                Field[row, column - 1] = "X";
             }
 
             if (column + 1 <= n - 1)
             {
-                if (Field[row, column + 1] != "X")
+                if (Field[row, column + 1] != "X" && Field[row, column + 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row, column + 1] = "X";
                 }
+                Field[row, column + 1] = "X";
             }
 
             if (row + 1 <= n - 1)
             {
-                if (Field[row + 1, column] != "X")
+                if (Field[row + 1, column] != "X" && Field[row + 1, column] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 1, column] = "X";
                 }
+                Field[row + 1, column] = "X";
             }
         }
 
@@ -175,38 +175,38 @@ namespace BattleFieldNamespace
 
             if (row - 2 >= 0)
             {
-                if (Field[row - 2, column] != "X")
+                if (Field[row - 2, column] != "X" && Field[row - 2, column] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 2, column] = "X";
                 }
+                Field[row - 2, column] = "X";
             }
 
             if (column - 2 >= 0)
             {
-                if (Field[row, column - 2] != "X")
+                if (Field[row, column - 2] != "X" && Field[row, column - 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row, column - 2] = "X";
                 }
+                Field[row, column - 2] = "X";
             }
 
             if (column + 2 <= n - 1)
             {
-                if (Field[row, column + 2] != "X")
+                if (Field[row, column + 2] != "X" && Field[row, column + 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row, column + 2] = "X";
                 }
+                Field[row, column + 2] = "X";
             }
 
             if (row + 2 <= n - 1)
             {
-                if (Field[row + 2, column] != "X")
+                if (Field[row + 2, column] != "X" && Field[row + 2, column] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 2, column] = "X";
                 }
+                Field[row + 2, column] = "X";
             }
         }
 
@@ -216,74 +216,74 @@ namespace BattleFieldNamespace
 
             if ((row - 1 >= 0) && (column - 2 >= 0))
             {
-                if (Field[row - 1, column - 2] != "X")
+                if (Field[row - 1, column - 2] != "X" && Field[row - 1, column - 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 1, column - 2] = "X";
                 }
+                Field[row - 1, column - 2] = "X";
             }
 
             if ((row + 1 <= n - 1) && (column - 2 >= 0))
             {
-                if (Field[row + 1, column - 2] != "X")
+                if (Field[row + 1, column - 2] != "X" && Field[row + 1, column - 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 1, column - 2] = "X";
                 }
+                Field[row + 1, column - 2] = "X";
             }
 
             if ((row - 2 >= 0) && (column - 1 >= 0))
             {
-                if (Field[row - 2, column - 1] != "X")
+                if (Field[row - 2, column - 1] != "X" && Field[row - 2, column - 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 2, column - 1] = "X";
                 }
+                Field[row - 2, column - 1] = "X";
             }
 
             if ((row + 2 <= n - 1) && (column - 1 >= 0))
             {
-                if (Field[row + 2, column - 1] != "X")
+                if (Field[row + 2, column - 1] != "X" && Field[row + 2, column - 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 2, column - 1] = "X";
                 }
+                Field[row + 2, column - 1] = "X";
             }
 
             if ((row - 1 >= 0) && (column + 2 <= n - 1))
             {
-                if (Field[row - 1, column + 2] != "X")
+                if (Field[row - 1, column + 2] != "X" && Field[row - 1, column + 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 1, column + 2] = "X";
                 }
+                Field[row - 1, column + 2] = "X";
             }
 
             if ((row + 1 <= n - 1) && (column + 2 <= n - 1))
             {
-                if (Field[row + 1, column + 2] != "X")
+                if (Field[row + 1, column + 2] != "X" && Field[row + 1, column + 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 1, column + 2] = "X";
                 }
+                Field[row + 1, column + 2] = "X";
             }
 
             if ((row - 2 >= 0) && (column + 1 <= n - 1))
             {
-                if (Field[row - 2, column + 1] != "X")
+                if (Field[row - 2, column + 1] != "X" && Field[row - 2, column + 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 2, column + 1] = "X";
                 }
+                Field[row - 2, column + 1] = "X";
             }
 
             if ((row + 2 <= n - 1) && (column + 1 <= n - 1))
             {
-                if (Field[row + 2, column + 1] != "X")
+                if (Field[row + 2, column + 1] != "X" && Field[row + 2, column + 1] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 2, column + 1] = "X";
                 }
+                Field[row + 2, column + 1] = "X";
             }
         }
 
@@ -293,38 +293,38 @@ namespace BattleFieldNamespace
 
             if ((row - 2 >= 0) && (column - 2 >= 0))
             {
-                if (Field[row - 2, column - 2] != "X")
+                if (Field[row - 2, column - 2] != "X" && Field[row - 2, column - 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 2, column - 2] = "X";
                 }
+                Field[row - 2, column - 2] = "X";
             }
 
             if ((row + 2 <= n - 1) && (column - 2 >= 0))
             {
-                if (Field[row + 2, column - 2] != "X")
+                if (Field[row + 2, column - 2] != "X" && Field[row + 2, column - 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 2, column - 2] = "X";
                 }
+                Field[row + 2, column - 2] = "X";
             }
 
             if ((row - 2 >= 0) && (column + 2 <= n - 1))
             {
-                if (Field[row - 2, column + 2] != "X")
+                if (Field[row - 2, column + 2] != "X" && Field[row - 2, column + 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row - 2, column + 2] = "X";
                 }
+                Field[row - 2, column + 2] = "X";
             }
 
             if ((row + 2 <= n - 1) && (column + 2 <= n - 1))
             {
-                if (Field[row + 2, column + 2] != "X")
+                if (Field[row + 2, column + 2] != "X" && Field[row + 2, column + 2] != "-")
                 {
                     killedNumbers++;
-                    Field[row + 2, column + 2] = "X";
                 }
+                Field[row + 2, column + 2] = "X";
             }
         }
 
@@ -415,7 +415,7 @@ namespace BattleFieldNamespace
 
         public bool Over()
         {
-            if (killedNumbers == countOfNumberedCells)
+            if (killedNumbers == loadedBombCount)
             {
                 return true;
             }
