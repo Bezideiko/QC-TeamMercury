@@ -460,5 +460,3 @@ namespace BattleFieldNamespace
         }
     }
 }
-
-//test
