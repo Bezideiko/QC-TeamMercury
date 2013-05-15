@@ -46,18 +46,21 @@ namespace BattleFieldNamespace
         }
 
         //Renamed from OutOfRangeCoordinates
-        public bool IsOutOfRangeCoordinates(int row, int column)
+        public bool IsInputCoordinatesInRange(int row, int column)
         {
             if ((row >= 0) && (row <= this.battleField.GameFieldSize - 1) && (column >= 0) && (column <= this.battleField.GameFieldSize - 1))
             {
+                return true;
+            }
+            else
+            {
                 return false;
             }
-
-            return true;
         }
 
         public void GameSession()
         {
+            //Initialize Battle Field
             this.battleField.InitilizeBattleField();
 
             Console.WriteLine(this.battleField.ToString());
@@ -72,43 +75,17 @@ namespace BattleFieldNamespace
   
         private void PlayBattleField()
         {
-            bool isCorrectUserInput = this.ReadUserInput();
+            int inputRow = -1;
+            int inputColumn = -1;
 
-            int row;
-            int column;
+            bool isCorrectUserInput = this.ReadUserInput(ref inputRow, ref inputColumn);
 
-            Console.Write("Please Enter Coordinates: ");
-
-            string inputRowAndColumn = Console.ReadLine();
-            string[] rowAndColumnSplit = inputRowAndColumn.Split(' ');
-
-
-            if ((rowAndColumnSplit.Length) <= 1)
+            if (isCorrectUserInput)
             {
-                row = -1; 
-                column = -1;
-            }
-            else
-            {
-                if (!(int.TryParse(rowAndColumnSplit[0], out row)))
-                {
-                    row = -1;
-                }
+                //Perform the Explosion of selected Bomb
+                bool isExplosionSuccessfull = this.battleField.MineCell(inputRow, inputColumn);
 
-                if (!(int.TryParse(rowAndColumnSplit[1], out column)))
-                {
-                    column = -1;
-                }
-            }
-
-            if ((IsOutOfRangeCoordinates(row, column)))
-            {
-                Console.WriteLine("This Move Is Out Of Area.");
-            }
-            else
-            {
-                bool isExplosionSuccessfull = this.battleField.MineCell(row, column);
-
+                //On successfull explosion print the battleField
                 if (isExplosionSuccessfull)
                 {
                     Console.WriteLine(this.battleField.ToString());
@@ -120,9 +97,40 @@ namespace BattleFieldNamespace
             }
         }
 
-        private bool ReadUserInput()
+        private bool ReadUserInput(ref int intputRow, ref int inputColumn)
         {
-            return true;
+            Console.Write("Please Enter Coordinates: ");
+
+            string inputRowAndColumn = Console.ReadLine();
+            string[] rowAndColumnSplit = inputRowAndColumn.Split(' ');
+
+
+            if ((rowAndColumnSplit.Length) <= 1)
+            {
+                intputRow = -1;
+                inputColumn = -1;
+            }
+            else
+            {
+                if (!(int.TryParse(rowAndColumnSplit[0], out intputRow)))
+                {
+                    intputRow = -1;
+                }
+
+                if (!(int.TryParse(rowAndColumnSplit[1], out inputColumn)))
+                {
+                    inputColumn = -1;
+                }
+            }
+
+            if (IsInputCoordinatesInRange(intputRow, inputColumn))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         static void Main(string[] args)

@@ -120,7 +120,6 @@ namespace BattleFieldNamespace
                 }
             }
 
-            //Setting the readolny variable its final value
             this.initialBombsCount = bombsAdded;
         }
 
