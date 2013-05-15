@@ -14,12 +14,16 @@ namespace BattleFieldNamespace
 
         private int detonatedBombs = 0;
 
+        private readonly Random randomGenerator;
+
         //readonly since it is never changed
         private int initialBombsCount;
 
         public BattleField(int battleFieldSize)
         {
             this.gameFieldSize = battleFieldSize;
+
+            this.randomGenerator = new Random();
         }
 
         public int InitialBombsCount
@@ -83,12 +87,10 @@ namespace BattleFieldNamespace
             }
         }
 
-        private static int RandomNumber(int min, int max)
+        private int GetRandomNumberInRange(int min, int max)
         {
-            Random random = new Random();
-            return Convert.ToInt32(random.Next(min, max));
+            return this.randomGenerator.Next(min, max + 1);
         }
-
 
         private void GenerateRandomBattleField()
         {
@@ -99,17 +101,17 @@ namespace BattleFieldNamespace
 
             while (bombsAdded + 1 <= 0.3 * gameFieldSize * gameFieldSize)
             {
-                row = RandomNumber(0, gameFieldSize - 1);
-                column = RandomNumber(0, gameFieldSize - 1);
+                row = GetRandomNumberInRange(0, gameFieldSize - 1);
+                column = GetRandomNumberInRange(0, gameFieldSize - 1);
 
                 if (gameField[row, column] == "-")
                 {
-                    gameField[row, column] = Convert.ToString(RandomNumber(1, 6));
+                    gameField[row, column] = Convert.ToString(GetRandomNumberInRange(1, 5));
                     bombsAdded++;
 
                     if (bombsAdded >= 0.15 * gameFieldSize * gameFieldSize)
                     {
-                        int stopFilling = RandomNumber(0, 2);
+                        int stopFilling = GetRandomNumberInRange(0, 1);
                         if (stopFilling == 1)
                         {
                             break;
