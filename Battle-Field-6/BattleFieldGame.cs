@@ -1,30 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BattleFieldNamespace
 {
-    class BattleField
+    class BattleFieldGame
     {
-        //tova e igrata
-        //znam che vsichko e na edno ama taka e po lesno
-        //public Boolean InputCheck(int inputNumber)
-        //{
-        //    if ((inputNumber > 0) && (inputNumber < 10))
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
+        //The game holds a reference to the BattleField
+        private readonly BattleField battleField;
 
-        public int InputFieldSize()
+        //Constructor is private, forcing the use of Factory method
+        private BattleFieldGame(int battleFieldSize)
+        {
+            this.battleField = new BattleField(battleFieldSize);
+        }
+
+        //Factory Design pattern
+        //used to separate the creation of teh game from the Gameplay
+        public static BattleFieldGame CreateBattleFieldGameFactory()
+        {
+            //Get user input for the creation of the game
+            int gameFieldSize = BattleFieldGame.InputFieldSize();
+
+            //Create a Game
+            return new BattleFieldGame(gameFieldSize);
+        }
+
+        private static int InputFieldSize()
         {
             int readNumber;
-            Console.WriteLine("Please enter an integer - field size (0 < N <= 10): ");
+            Console.Write("Please enter an integer - field size (0 < N <= 10): ");
             
             while (!int.TryParse(Console.ReadLine(), out readNumber) || readNumber <= 0 || readNumber > 10)
             {
@@ -34,400 +38,16 @@ namespace BattleFieldNamespace
             return readNumber;
         }
 
-        string[,] Field;
-        int n;
-
-        public void CreateBattleTable()
+        //Renamed from Over()
+        public bool IsOver()
         {
-            n = InputFieldSize();
-
-            Field = new string[n, n];
-            for (int i = 0; i <= n - 1; i++)
-            {
-                for (int j = 0; j <= n - 1; j++)
-                {
-                    Field[i, j] = "-";
-                }
-            }
+            return this.battleField.RemovedBombsCount == this.battleField.InitialBombsCount;
         }
 
-        private static int RandomNumber(int min, int max)
+        //Renamed from OutOfRangeCoordinates
+        public bool IsOutOfRangeCoordinates(int row, int column)
         {
-            Random random = new Random();
-            return Convert.ToInt32(random.Next(min, max));
-        }
-
-        int loadedBombCount = 0;
-
-        public void FillInTheFields()
-        {
-            int row;
-            int column;
-            while (loadedBombCount + 1 <= 0.3 * n * n)
-            {
-                row = RandomNumber(0, n - 1);
-                column = RandomNumber(0, n - 1);
-
-                if (Field[row, column] == "-")
-                {
-                    Field[row, column] = Convert.ToString(RandomNumber(1, 6));
-                    loadedBombCount++;
-
-                    if (loadedBombCount >= 0.15 * n * n)
-                    {
-                        int stopFilling = RandomNumber(0, 1);
-                        if (stopFilling == 1)
-                        {
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        int killedNumbers = 0;
-
-        public void BombOne(int row, int column)
-        {
-            Field[row, column] = "X";
-            killedNumbers++;
-            if ((row - 1 >= 0) && (column - 1 >= 0))
-            {
-                if (Field[row - 1, column - 1] != "X" && Field[row - 1, column - 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 1, column - 1] = "X";
-            }
-
-            if ((row + 1 <= n - 1) && (column - 1 >= 0))
-            {
-                if (Field[row + 1, column - 1] != "X" && Field[row + 1, column - 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 1, column - 1] = "X";
-            }
-
-            if ((row - 1 >= 0) && (column + 1 <= n - 1))
-            {
-                if (Field[row - 1, column + 1] != "X" && Field[row - 1, column + 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 1, column + 1] = "X";
-            }
-
-            if ((row + 1 <= n - 1) && (column + 1 <= n - 1))
-            {
-                if (Field[row + 1, column + 1] != "X" && Field[row + 1, column + 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 1, column + 1] = "X";
-            }
-        }
-
-        public void BombTwo(int row, int column)
-        {
-            BombOne(row, column);
-
-            if (row - 1 >= 0)
-            {
-                if (Field[row - 1, column] != "X" && Field[row - 1, column] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 1, column] = "X";
-            }
-
-            if (column - 1 >= 0)
-            {
-                if (Field[row, column - 1] != "X" && Field[row, column - 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row, column - 1] = "X";
-            }
-
-            if (column + 1 <= n - 1)
-            {
-                if (Field[row, column + 1] != "X" && Field[row, column + 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row, column + 1] = "X";
-            }
-
-            if (row + 1 <= n - 1)
-            {
-                if (Field[row + 1, column] != "X" && Field[row + 1, column] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 1, column] = "X";
-            }
-        }
-
-        public void BombThree(int row, int column)
-        {
-            BombTwo(row, column);
-
-            if (row - 2 >= 0)
-            {
-                if (Field[row - 2, column] != "X" && Field[row - 2, column] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 2, column] = "X";
-            }
-
-            if (column - 2 >= 0)
-            {
-                if (Field[row, column - 2] != "X" && Field[row, column - 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row, column - 2] = "X";
-            }
-
-            if (column + 2 <= n - 1)
-            {
-                if (Field[row, column + 2] != "X" && Field[row, column + 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row, column + 2] = "X";
-            }
-
-            if (row + 2 <= n - 1)
-            {
-                if (Field[row + 2, column] != "X" && Field[row + 2, column] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 2, column] = "X";
-            }
-        }
-
-        public void BombFour(int row, int column)
-        {
-            BombThree(row, column);
-
-            if ((row - 1 >= 0) && (column - 2 >= 0))
-            {
-                if (Field[row - 1, column - 2] != "X" && Field[row - 1, column - 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 1, column - 2] = "X";
-            }
-
-            if ((row + 1 <= n - 1) && (column - 2 >= 0))
-            {
-                if (Field[row + 1, column - 2] != "X" && Field[row + 1, column - 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 1, column - 2] = "X";
-            }
-
-            if ((row - 2 >= 0) && (column - 1 >= 0))
-            {
-                if (Field[row - 2, column - 1] != "X" && Field[row - 2, column - 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 2, column - 1] = "X";
-            }
-
-            if ((row + 2 <= n - 1) && (column - 1 >= 0))
-            {
-                if (Field[row + 2, column - 1] != "X" && Field[row + 2, column - 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 2, column - 1] = "X";
-            }
-
-            if ((row - 1 >= 0) && (column + 2 <= n - 1))
-            {
-                if (Field[row - 1, column + 2] != "X" && Field[row - 1, column + 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 1, column + 2] = "X";
-            }
-
-            if ((row + 1 <= n - 1) && (column + 2 <= n - 1))
-            {
-                if (Field[row + 1, column + 2] != "X" && Field[row + 1, column + 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 1, column + 2] = "X";
-            }
-
-            if ((row - 2 >= 0) && (column + 1 <= n - 1))
-            {
-                if (Field[row - 2, column + 1] != "X" && Field[row - 2, column + 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 2, column + 1] = "X";
-            }
-
-            if ((row + 2 <= n - 1) && (column + 1 <= n - 1))
-            {
-                if (Field[row + 2, column + 1] != "X" && Field[row + 2, column + 1] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 2, column + 1] = "X";
-            }
-        }
-
-        public void BombFive(int row, int column)
-        {
-            BombFour(row, column);
-
-            if ((row - 2 >= 0) && (column - 2 >= 0))
-            {
-                if (Field[row - 2, column - 2] != "X" && Field[row - 2, column - 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 2, column - 2] = "X";
-            }
-
-            if ((row + 2 <= n - 1) && (column - 2 >= 0))
-            {
-                if (Field[row + 2, column - 2] != "X" && Field[row + 2, column - 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 2, column - 2] = "X";
-            }
-
-            if ((row - 2 >= 0) && (column + 2 <= n - 1))
-            {
-                if (Field[row - 2, column + 2] != "X" && Field[row - 2, column + 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row - 2, column + 2] = "X";
-            }
-
-            if ((row + 2 <= n - 1) && (column + 2 <= n - 1))
-            {
-                if (Field[row + 2, column + 2] != "X" && Field[row + 2, column + 2] != "-")
-                {
-                    killedNumbers++;
-                }
-                Field[row + 2, column + 2] = "X";
-            }
-        }
-
-        public void InvalidMove()
-        {
-            Console.WriteLine("Invalid Move!");
-            Console.WriteLine();
-        }
-
-        public void ViewTable()
-        {
-            Console.Write("   ");
-            for (int k = 0; k <= n - 1; k++)
-            {
-                Console.Write(k + " ");
-            }
-            Console.WriteLine();
-            Console.Write("   ");
-
-            for (int k = 0; k <= n - 1; k++)
-            {
-                Console.Write("--");
-            }
-            Console.WriteLine();
-
-            for (int i = 0; i <= n - 1; i++)
-            {
-                Console.Write(i + "| ");
-                for (int j = 0; j <= n - 1; j++)
-                {
-                    Console.Write(Field[i, j] + " ");
-                }
-
-                Console.WriteLine();
-                Console.WriteLine();
-            }
-        }
-
-        int detonatedBombs = 0;
-
-        public void MineCell(int row, int column)
-        {
-            int cellNumber;
-
-            if ((Field[row, column] == "X") || ((Field[row, column]) == "-"))
-            {
-                cellNumber = 0;
-            }
-            else
-            {
-                cellNumber = Convert.ToInt32(Field[row, column]);
-            }
-
-            switch (cellNumber)
-            {
-                case 1:
-                    {
-                        BombOne(row, column); ViewTable(); detonatedBombs++; break;
-                    }
-                    
-                case 2:
-                    {
-                        BombTwo(row, column); ViewTable(); detonatedBombs++; break;
-                    }
-                    
-                case 3:
-                    {
-                        BombThree(row, column); ViewTable(); detonatedBombs++; break;
-                    }
-                    
-                case 4:
-                    {
-                        BombFour(row, column); ViewTable(); detonatedBombs++; break;
-                    }
-                    
-                case 5:
-                    {
-                        BombFive(row, column); ViewTable(); detonatedBombs++; break;
-                    }
-                    
-
-                default:
-                    {
-                        InvalidMove(); break;
-                    }
-            }
-        }
-
-        public bool Over()
-        {
-            if (killedNumbers == loadedBombCount)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool OutOfAreaCoordinates(int row, int column)
-        {
-            if ((row >= 0) && (row <= n - 1) && (column >= 0) && (column <= n - 1))
+            if ((row >= 0) && (row <= this.battleField.GameFieldSize - 1) && (column >= 0) && (column <= this.battleField.GameFieldSize - 1))
             {
                 return false;
             }
@@ -437,11 +57,13 @@ namespace BattleFieldNamespace
 
         public void GameSession()
         {
-            CreateBattleTable();
-            FillInTheFields();
-            ViewTable();
+            this.battleField.CreateBattleTable();
 
-            while (!(Over()))
+            this.battleField.FillInTheFields();
+
+            Console.WriteLine(this.battleField.ToString());
+
+            while (!(IsOver()))
             {
                 Console.Write("Please Enter Coordinates : ");
 
@@ -450,7 +72,7 @@ namespace BattleFieldNamespace
                 int row;
                 int column;
 
-                if ((rowAndColumnSplit.Length) <= 0)
+                if ((rowAndColumnSplit.Length) <= 1)
                 {
                     row = -1; 
                     column = -1;
@@ -468,23 +90,35 @@ namespace BattleFieldNamespace
                     }
                 }
 
-                if ((OutOfAreaCoordinates(row, column)))
+                if ((IsOutOfRangeCoordinates(row, column)))
                 {
                     Console.WriteLine("This Move Is Out Of Area.");
                 }
                 else
                 {
-                    MineCell(row, column);
+                    bool isExplosionSuccessfull = this.battleField.MineCell(row, column);
+
+                    if (isExplosionSuccessfull)
+                    {
+                        Console.WriteLine(this.battleField.ToString());
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid move!");
+                    }
                 }
             }
 
-            Console.WriteLine("Game Over.Detonated Mines {0}", detonatedBombs);
+            Console.WriteLine("Game Over.Detonated Mines {0}", this.battleField.DetonatedBombs);
         }
 
         static void Main(string[] args)
         {
-            BattleField BF = new BattleField();
-            BF.GameSession();
+            //Create a game, depending on user's input
+            BattleFieldGame newBattleFieldGame = BattleFieldGame.CreateBattleFieldGameFactory();
+            
+            //Play the created game
+            newBattleFieldGame.GameSession();
         }
     }
 }
