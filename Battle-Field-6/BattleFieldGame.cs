@@ -59,7 +59,7 @@ namespace BattleFieldNamespace
         /// Checks whether the end game condition is fulfilled. 
         /// </summary>
         /// <returns>True if all the bombs in the battlefield have exploded.</returns>
-        public bool IsOver()
+        public bool isGameOver()
         {
             return this.battleField.RemovedBombsCount == this.battleField.InitialBombsCount;
         }
@@ -89,13 +89,16 @@ namespace BattleFieldNamespace
             //Initialize BattleField
             this.battleField.InitilizeBattleField();
 
+            //Initial display of the battleField
             Console.WriteLine(this.battleField.ToString());
 
-            while (!(IsOver()))
+            //Main Game Cycle
+            while (!(isGameOver()))
             {
                 PlayBattleField();
             }
 
+            //Display End of Game message
             Console.WriteLine("Game Over. Detonated Mines: {0}", this.battleField.DetonatedBombs);
         }
 
