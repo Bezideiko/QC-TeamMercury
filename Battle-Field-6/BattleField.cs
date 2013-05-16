@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Text;
 
@@ -22,7 +22,6 @@ namespace BattleFieldNamespace
         public BattleField(int battleFieldSize)
         {
             this.gameFieldSize = battleFieldSize;
-
             this.randomGenerator = new Random();
         }
 
@@ -58,8 +57,11 @@ namespace BattleFieldNamespace
             }
         }
 
-        //Property for accessing the elements of the Game fiel
-        //needed for testing purposes
+        
+        ///<summary>
+        ///Property for accessing Game Field elements
+        ///needed for testing purposes
+        ///</summary>
         public string this[int indexRow, int indexCol]
         {
             get
@@ -71,7 +73,6 @@ namespace BattleFieldNamespace
         public void InitilizeBattleField()
         {
             this.InitializeEmptyBattleField();
-
             this.GenerateRandomBattleField();
         }
 
@@ -96,7 +97,6 @@ namespace BattleFieldNamespace
         {
             int row;
             int column;
-
             int bombsAdded = 0;
 
             while (bombsAdded + 1 <= 0.3 * gameFieldSize * gameFieldSize)
@@ -365,12 +365,14 @@ namespace BattleFieldNamespace
             }
         }
 
-        //Perform an explosion
+        /// <summary>
+        /// Performing bomb explosion
+        /// Initially we admit the explosion is successfull
+        /// </summary>
+        /// <returns>Is the explosion successfull or not</returns>
         public bool MineCell(int row, int column)
         {
-            //By  default the explosion is successfull
             bool isExplosionSuccessfull = true;
-
             int cellNumber;
 
             if ((gameField[row, column] == "X") || ((gameField[row, column]) == "-"))
@@ -424,7 +426,10 @@ namespace BattleFieldNamespace
             return isExplosionSuccessfull;
         }
 
-        //Creating a string with the whole battleField with the requested format
+        /// <summary>
+        /// Creates a string with the whole battleField with the requested format
+        /// </summary>
+        /// <returns>Result intring format</returns>
         public override string ToString()
         {
             StringBuilder resultString = new StringBuilder();
