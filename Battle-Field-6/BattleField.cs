@@ -81,6 +81,7 @@ namespace BattleFieldNamespace
         public void InitilizeBattleField()
         {
             this.InitializeEmptyBattleField();
+
             this.GenerateRandomBattleField();
         }
 

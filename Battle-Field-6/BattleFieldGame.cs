@@ -25,10 +25,13 @@ namespace BattleFieldNamespace
         /// <returns>New game created with the user's input data</returns>
         public static BattleFieldGame CreateBattleFieldGameFactory()
         {
+            //read user's input for the game field size
             int gameFieldSize = BattleFieldGame.InputFieldSize();
 
             return new BattleFieldGame(gameFieldSize);
         }
+
+        private const int MaxFieldSize = 10;
 
         /// <summary>
         /// Game Welcome Screen
@@ -39,10 +42,12 @@ namespace BattleFieldNamespace
         private static int InputFieldSize()
         {
             int readNumber;
+
+            //Display welcome message
             Console.WriteLine("Welcome to \"Battle Field\" game!");
             Console.Write("Enter battle field size (no more than 10): n = ");
 
-            while (!int.TryParse(Console.ReadLine(), out readNumber) || readNumber <= 0 || readNumber > 10)
+            while (!int.TryParse(Console.ReadLine(), out readNumber) || readNumber <= 0 || readNumber > MaxFieldSize)
             {
                 Console.WriteLine("The input is wrong. Please enter an integer - field size (0 < N <= 10): ");
             }
@@ -81,6 +86,7 @@ namespace BattleFieldNamespace
         /// </summary>
         public void GameSession()
         {
+            //Initialize BattleField
             this.battleField.InitilizeBattleField();
 
             Console.WriteLine(this.battleField.ToString());
