@@ -75,14 +75,8 @@ namespace BattleFieldNamespace
             bool isRowInCorrectRange = (row >= 0) && (row <= this.battleField.GameFieldSize - 1);
             bool isColumnInCorrectRange = (column >= 0) && (column <= this.battleField.GameFieldSize - 1);
 
-            if (isRowInCorrectRange && isColumnInCorrectRange)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            bool isCorrectPositions = isRowInCorrectRange && isColumnInCorrectRange;
+            return isCorrectPositions;
         }
 
         /// <summary>
