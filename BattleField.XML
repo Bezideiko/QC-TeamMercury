@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BattleField</name>
+    </assembly>
+    <members>
+        <member name="M:BattleFieldNamespace.BattleField.MineCell(System.Int32,System.Int32)">
+            <summary>
+            Performing bomb explosion
+            Initially we admit the explosion is successfull
+            </summary>
+            <returns>Is the explosion successfull or not</returns>
+        </member>
+        <member name="M:BattleFieldNamespace.BattleField.ToString">
+            <summary>
+            Creates a string with the whole battleField with the requested format
+            </summary>
+            <returns>Result intring format</returns>
+        </member>
+        <member name="P:BattleFieldNamespace.BattleField.Item(System.Int32,System.Int32)">
+            <summary>
+            Property for accessing Game Field elements
+            needed for testing purposes
+            </summary>
+        </member>
+        <member name="F:BattleFieldNamespace.BattleFieldGame.battleField">
+            <summary>
+            Reference to the BattleField.cs
+            </summary>
+        </member>
+        <member name="M:BattleFieldNamespace.BattleFieldGame.#ctor(System.Int32)">
+            <summary>
+            Private constructor forcing the use of CreateBattleFieldGameFactory() method
+            </summary>
+        </member>
+        <member name="M:BattleFieldNamespace.BattleFieldGame.CreateBattleFieldGameFactory">
+            <summary>
+            Factory Design Pattern used to separate game creation from gameplay
+            Gets FieldSize from user's input
+            </summary>
+            <returns>New game created with the user's input data</returns>
+        </member>
+        <member name="M:BattleFieldNamespace.BattleFieldGame.InputFieldSize">
+            <summary>
+            Game Welcome Screen
+            User is asked to enter a number for BattleField Size
+            Checkings if the input is correct
+            </summary>
+            <returns>Number for creating BattleField</returns>
+        </member>
+        <member name="M:BattleFieldNamespace.BattleFieldGame.IsInputCoordinatesInRange(System.Int32,System.Int32)">
+            <summary>
+            Checks if input data coordinates for row and column are in the desired range
+            </summary>
+            <param name="row">Gets a row coordinate</param>
+            <param name="column">Gets a column coordinate</param>
+            <returns>True (in the range) or false (out of range)</returns>
+        </member>
+        <member name="M:BattleFieldNamespace.BattleFieldGame.GameSession">
+            <summary>
+            Initializing Battle Field
+            Playing game until method IsOver() is true
+            End game with message to user.
+            </summary>
+        </member>
+        <member name="M:BattleFieldNamespace.BattleFieldGame.PlayBattleField">
+            <summary>
+            Playing game
+            When correct input data is set, bomb explosion is performed
+            If explosion is successful, the battlefield is reprinted
+            </summary>
+        </member>
+        <member name="M:BattleFieldNamespace.BattleFieldGame.ReadUserInput(System.Int32@,System.Int32@)">
+            <summary>
+            Reading and storing user's input data
+            </summary>
+            <param name="intputRow">Coordinate for row</param>
+            <param name="inputColumn">Coordinate for column</param>
+        </member>
+        <member name="M:BattleFieldNamespace.BattleFieldGame.Main(System.String[])">
+            <summary>
+            Creating new game, depending on user's input
+            Start playing created game
+            </summary>
+        </member>
+    </members>
+</doc>
