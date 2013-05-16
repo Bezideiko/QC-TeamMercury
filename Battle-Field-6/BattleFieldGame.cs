@@ -69,10 +69,13 @@ namespace BattleFieldNamespace
         /// </summary>
         /// <param name="row">Gets a row coordinate</param>
         /// <param name="column">Gets a column coordinate</param>
-        /// <returns>True (in the range) or false (out of range)</returns>
+        /// <returns>True (in the range) or false (out of range coordinates)</returns>
         public bool IsInputCoordinatesInRange(int row, int column)
         {
-            if ((row >= 0) && (row <= this.battleField.GameFieldSize - 1) && (column >= 0) && (column <= this.battleField.GameFieldSize - 1))
+            bool isRowInCorrectRange = (row >= 0) && (row <= this.battleField.GameFieldSize - 1);
+            bool isColumnInCorrectRange = (column >= 0) && (column <= this.battleField.GameFieldSize - 1);
+
+            if (isRowInCorrectRange && isColumnInCorrectRange)
             {
                 return true;
             }
