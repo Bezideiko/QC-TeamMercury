@@ -19,6 +19,10 @@ namespace BattleFieldNamespace
         //readonly since it is never changed
         private int initialBombsCount;
 
+        /// <summary>
+        /// Constructor for new Battle Field
+        /// </summary>
+        /// <param name="battleFieldSize">gets size of the Battle Field</param>
         public BattleField(int battleFieldSize)
         {
             this.gameFieldSize = battleFieldSize;
@@ -57,7 +61,6 @@ namespace BattleFieldNamespace
             }
         }
 
-        
         ///<summary>
         ///Property for accessing Game Field elements
         ///needed for testing purposes
@@ -70,13 +73,18 @@ namespace BattleFieldNamespace
             }
         }
 
+        /// <summary>
+        /// Initializying Battle Field
+        /// by initializing firstly empty battle field
+        /// and after generating random battle field
+        /// </summary>
         public void InitilizeBattleField()
         {
             this.InitializeEmptyBattleField();
             this.GenerateRandomBattleField();
         }
 
-        private  void InitializeEmptyBattleField()
+        private void InitializeEmptyBattleField()
         {
             gameField = new string[gameFieldSize, gameFieldSize];
             for (int i = 0; i <= gameFieldSize - 1; i++)
@@ -93,6 +101,9 @@ namespace BattleFieldNamespace
             return this.randomGenerator.Next(min, max + 1);
         }
 
+        /// <summary>
+        /// Generating random Battle Field
+        /// </summary>
         private void GenerateRandomBattleField()
         {
             int row;
@@ -122,7 +133,6 @@ namespace BattleFieldNamespace
 
             this.initialBombsCount = bombsAdded;
         }
-
 
         public void BombOne(int row, int column)
         {
@@ -388,32 +398,32 @@ namespace BattleFieldNamespace
             {
                 case 1:
                     {
-                        BombOne(row, column); 
-                        detonatedBombs++; 
+                        BombOne(row, column);
+                        detonatedBombs++;
                         break;
                     }
                 case 2:
                     {
-                        BombTwo(row, column); 
-                        detonatedBombs++; 
+                        BombTwo(row, column);
+                        detonatedBombs++;
                         break;
                     }
                 case 3:
                     {
-                        BombThree(row, column); 
-                        detonatedBombs++; 
+                        BombThree(row, column);
+                        detonatedBombs++;
                         break;
                     }
                 case 4:
                     {
-                        BombFour(row, column); 
-                        detonatedBombs++; 
+                        BombFour(row, column);
+                        detonatedBombs++;
                         break;
                     }
                 case 5:
                     {
-                        BombFive(row, column); 
-                        detonatedBombs++; 
+                        BombFive(row, column);
+                        detonatedBombs++;
                         break;
                     }
                 default:
@@ -429,7 +439,7 @@ namespace BattleFieldNamespace
         /// <summary>
         /// Creates a string with the whole battleField with the requested format
         /// </summary>
-        /// <returns>Result intring format</returns>
+        /// <returns>Result in String format</returns>
         public override string ToString()
         {
             StringBuilder resultString = new StringBuilder();
