@@ -1,36 +1,47 @@
-﻿using System;
+using System;
 using System.Linq;
 
 namespace BattleFieldNamespace
 {
     class BattleFieldGame
     {
-        //The game holds a reference to the BattleField
+        /// <summary>
+        /// Reference to the BattleField.cs
+        /// </summary>
         private readonly BattleField battleField;
 
-        //Constructor is private, forcing the use of Factory method
+        /// <summary>
+        /// Private constructor forcing the use of CreateBattleFieldGameFactory() method
+        /// </summary>
         private BattleFieldGame(int battleFieldSize)
         {
             this.battleField = new BattleField(battleFieldSize);
         }
 
-        //Factory Design pattern
-        //used to separate the creation of teh game from the Gameplay
+        /// <summary>
+        /// Factory Design Pattern used to separate game creation from gameplay
+        /// Gets FieldSize from user's input
+        /// </summary>
+        /// <returns>New game created with the user's input data</returns>
         public static BattleFieldGame CreateBattleFieldGameFactory()
         {
-            //Get user input for the creation of the game
             int gameFieldSize = BattleFieldGame.InputFieldSize();
 
-            //Create a Game
             return new BattleFieldGame(gameFieldSize);
         }
 
+        /// <summary>
+        /// Game Welcome Screen
+        /// User is asked to enter a number for BattleField Size
+        /// Checkings if the input is correct
+        /// </summary>
+        /// <returns>Number for creating BattleField</returns>
         private static int InputFieldSize()
         {
             int readNumber;
             Console.WriteLine("Welcome to \"Battle Field\" game!");
             Console.Write("Enter battle field size (no more than 10): n = ");
-            
+
             while (!int.TryParse(Console.ReadLine(), out readNumber) || readNumber <= 0 || readNumber > 10)
             {
                 Console.WriteLine("The input is wrong. Please enter an integer - field size (0 < N <= 10): ");
@@ -72,7 +83,11 @@ namespace BattleFieldNamespace
 
             Console.WriteLine("Game Over. Detonated Mines: {0}", this.battleField.DetonatedBombs);
         }
-  
+
+        /// <summary>
+        /// When correct input data is set, bomb explosion is performed
+        /// If explosion is successful, the battlefield is printed
+        /// </summary>
         private void PlayBattleField()
         {
             int inputRow = -1;
@@ -82,10 +97,8 @@ namespace BattleFieldNamespace
 
             if (isCorrectUserInput)
             {
-                //Perform the Explosion of selected Bomb
                 bool isExplosionSuccessfull = this.battleField.MineCell(inputRow, inputColumn);
 
-                //On successfull explosion print the battleField
                 if (isExplosionSuccessfull)
                 {
                     Console.WriteLine(this.battleField.ToString());
@@ -103,7 +116,6 @@ namespace BattleFieldNamespace
 
             string inputRowAndColumn = Console.ReadLine();
             string[] rowAndColumnSplit = inputRowAndColumn.Split(' ');
-
 
             if ((rowAndColumnSplit.Length) <= 1)
             {
@@ -133,12 +145,13 @@ namespace BattleFieldNamespace
             }
         }
 
+        /// <summary>
+        /// Creating new game, depending on user's input
+        /// Start playing created game
+        /// </summary>
         static void Main(string[] args)
         {
-            //Create a game, depending on user's input
             BattleFieldGame newBattleFieldGame = BattleFieldGame.CreateBattleFieldGameFactory();
-            
-            //Play the created game
             newBattleFieldGame.GameSession();
         }
     }
