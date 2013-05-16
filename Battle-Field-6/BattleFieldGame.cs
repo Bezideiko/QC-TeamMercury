@@ -50,13 +50,18 @@ namespace BattleFieldNamespace
             return readNumber;
         }
 
-        //Renamed from Over()
+        //Game ends when this method is true
         public bool IsOver()
         {
             return this.battleField.RemovedBombsCount == this.battleField.InitialBombsCount;
         }
 
-        //Renamed from OutOfRangeCoordinates
+        /// <summary>
+        /// Checks if input data coordinates for row and column are in the desired range
+        /// </summary>
+        /// <param name="row">Gets a row coordinate</param>
+        /// <param name="column">Gets a column coordinate</param>
+        /// <returns>True (in the range) or false (out of range)</returns>
         public bool IsInputCoordinatesInRange(int row, int column)
         {
             if ((row >= 0) && (row <= this.battleField.GameFieldSize - 1) && (column >= 0) && (column <= this.battleField.GameFieldSize - 1))
@@ -69,9 +74,13 @@ namespace BattleFieldNamespace
             }
         }
 
+        /// <summary>
+        /// Initializing Battle Field
+        /// Playing game until method IsOver() is true
+        /// End game with message to user.
+        /// </summary>
         public void GameSession()
         {
-            //Initialize Battle Field
             this.battleField.InitilizeBattleField();
 
             Console.WriteLine(this.battleField.ToString());
@@ -85,8 +94,9 @@ namespace BattleFieldNamespace
         }
 
         /// <summary>
+        /// Playing game
         /// When correct input data is set, bomb explosion is performed
-        /// If explosion is successful, the battlefield is printed
+        /// If explosion is successful, the battlefield is reprinted
         /// </summary>
         private void PlayBattleField()
         {
@@ -110,6 +120,11 @@ namespace BattleFieldNamespace
             }
         }
 
+        /// <summary>
+        /// Reading and storing user's input data
+        /// </summary>
+        /// <param name="intputRow">Coordinate for row</param>
+        /// <param name="inputColumn">Coordinate for column</param>
         private bool ReadUserInput(ref int intputRow, ref int inputColumn)
         {
             Console.Write("Please Enter Coordinates: ");
