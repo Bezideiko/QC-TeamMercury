@@ -55,7 +55,10 @@ namespace BattleFieldNamespace
             return readNumber;
         }
 
-        //Game ends when this method is true
+        /// <summary>
+        /// Checks whether the end game condition is fulfilled. 
+        /// </summary>
+        /// <returns>True if all the bombs in the battlefield have exploded.</returns>
         public bool IsOver()
         {
             return this.battleField.RemovedBombsCount == this.battleField.InitialBombsCount;
