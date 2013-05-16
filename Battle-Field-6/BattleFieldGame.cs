@@ -6,7 +6,7 @@ namespace BattleFieldNamespace
     class BattleFieldGame
     {
         /// <summary>
-        /// Reference to the BattleField.cs
+        /// The battlefield of the game
         /// </summary>
         private readonly BattleField battleField;
 
@@ -16,6 +16,17 @@ namespace BattleFieldNamespace
         private BattleFieldGame(int battleFieldSize)
         {
             this.battleField = new BattleField(battleFieldSize);
+        }
+
+        /// <summary>
+        /// Reference to the BattleField, for testing purposes
+        /// </summary>
+        public BattleField BattleField
+        {
+            get
+            {
+                return this.battleField;
+            }
         }
 
         /// <summary>
