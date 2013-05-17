@@ -80,6 +80,11 @@
             a matrix of numbers and empty cells by series of explosions which detonate areas of different sizes. 
             </summary>
         </member>
+        <member name="F:BattleFieldNamespace.BattleFieldGame.MaxFieldSize">
+            <summary>
+            The maximum size of a Battle Field
+            </summary>
+        </member>
         <member name="F:BattleFieldNamespace.BattleFieldGame.battleField">
             <summary>
             The battlefield of the game

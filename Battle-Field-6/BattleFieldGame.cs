@@ -1,16 +1,18 @@
-using System;
-using System.Diagnostics;
-using System.Linq;
-
 namespace BattleFieldNamespace
 {
+    using System;
+    using System.Diagnostics;
+    using System.Linq;
+
     /// <summary>
     /// console-based implementation of the game "Battle Field" in which the player tries to clean 
     /// a matrix of numbers and empty cells by series of explosions which detonate areas of different sizes. 
     /// </summary>
     public class BattleFieldGame
     {
-        //Maximum Field Size
+        /// <summary>
+        /// The maximum size of a Battle Field
+        /// </summary>
         public const int MaxFieldSize = 10;
 
         /// <summary>
@@ -24,6 +26,16 @@ namespace BattleFieldNamespace
         public BattleFieldGame(int battleFieldSize)
         {
             this.battleField = new BattleField(battleFieldSize);
+        }
+
+        /// <summary>
+        /// Creating new game, depending on user's input
+        /// Start playing created game
+        /// </summary>
+        public static void Main(string[] args)
+        {
+            BattleFieldGame newBattleFieldGame = BattleFieldGame.CreateBattleFieldGameFactory();
+            newBattleFieldGame.GameSession();
         }
 
         /// <summary>
@@ -55,7 +67,7 @@ namespace BattleFieldNamespace
 
             bool isCorrectlyFormattedInput = false;
 
-            isCorrectlyFormattedInput =  int.TryParse(Console.ReadLine(), out readNumber);
+            isCorrectlyFormattedInput = int.TryParse(Console.ReadLine(), out readNumber);
 
             while (!isCorrectlyFormattedInput || readNumber <= 0 || readNumber > MaxFieldSize)
             {
@@ -101,15 +113,16 @@ namespace BattleFieldNamespace
             //Initialize BattleField
             this.battleField.InitilizeBattleField();
 
-            Debug.Assert(this.battleField.GameFieldSize > 0 && this.battleField.GameFieldSize <= MaxFieldSize);
+            Debug.Assert(this.battleField.GameFieldSize > 0 && this.battleField.GameFieldSize <= MaxFieldSize,
+            "Asserting the the battleField is initialized and in the correct size.");
 
             //Initial display of the battleField
             Console.WriteLine(this.battleField.ToString());
 
             //Main Game Cycle
-            while (!(IsGameOver()))
+            while (!this.IsGameOver())
             {
-                PlayBattleFieldGameTurn();
+                this.PlayBattleFieldGameTurn();
             }
 
             //Display End of Game message
@@ -137,14 +150,14 @@ namespace BattleFieldNamespace
                 return;
             }
 
-            //Validate User's input
-            if (!IsInputCoordinatesInRange(inputRow, inputColumn))
+            ////Validate User's input
+            if (!this.IsInputCoordinatesInRange(inputRow, inputColumn))
             {
                 Console.WriteLine("Invalid coordinates entered. Please enter valid coordinates.");
                 return;
             }
 
-            //Perform explosion
+            ////Perform explosion
             bool isExplosionSuccessfull = this.battleField.MineCell(inputRow, inputColumn);
 
             if (isExplosionSuccessfull)
@@ -155,7 +168,6 @@ namespace BattleFieldNamespace
             {
                 Console.WriteLine("Invalid move!");
             }
-
         }
 
         /// <summary>
@@ -170,7 +182,7 @@ namespace BattleFieldNamespace
             string inputRowAndColumn = Console.ReadLine();
             string[] rowAndColumnSplit = inputRowAndColumn.Split(' ');
 
-            if ((rowAndColumnSplit.Length) != 2)
+            if (rowAndColumnSplit.Length != 2)
             {
                 throw new FormatException("Input in incorrect format. Please use the followin format: [number number]");
             }
@@ -186,17 +198,6 @@ namespace BattleFieldNamespace
             {
                 throw new FormatException("Input in incorrect format. Please use the followin format: [number number]");
             }
-
-        }
-
-        /// <summary>
-        /// Creating new game, depending on user's input
-        /// Start playing created game
-        /// </summary>
-        static void Main(string[] args)
-        {
-            BattleFieldGame newBattleFieldGame = BattleFieldGame.CreateBattleFieldGameFactory();
-            newBattleFieldGame.GameSession();
         }
     }
 }
