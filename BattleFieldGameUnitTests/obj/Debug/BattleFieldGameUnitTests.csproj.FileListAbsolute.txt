@@ -1,0 +1,7 @@
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\BattleFieldGameUnitTests\obj\Debug\BattleFieldGameUnitTests.csprojResolveAssemblyReference.cache
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\BattleFieldGameUnitTests\bin\Debug\BattleFieldGameUnitTests.dll
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\BattleFieldGameUnitTests\bin\Debug\BattleFieldGameUnitTests.pdb
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\BattleFieldGameUnitTests\bin\Debug\BattleField.exe
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\BattleFieldGameUnitTests\bin\Debug\BattleField.pdb
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\BattleFieldGameUnitTests\obj\Debug\BattleFieldGameUnitTests.dll
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\BattleFieldGameUnitTests\obj\Debug\BattleFieldGameUnitTests.pdb

@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace BattleFieldNamespace
 {
-    class BattleFieldGame
+    public class BattleFieldGame
     {
         //Maximum Field Size
-        private const int MaxFieldSize = 10;
+        public const int MaxFieldSize = 10;
 
         /// <summary>
         /// The battlefield of the game
@@ -16,7 +16,7 @@ namespace BattleFieldNamespace
         /// <summary>
         /// Private constructor forcing the use of CreateBattleFieldGameFactory() method
         /// </summary>
-        private BattleFieldGame(int battleFieldSize)
+        public BattleFieldGame(int battleFieldSize)
         {
             this.battleField = new BattleField(battleFieldSize);
         }
@@ -24,7 +24,7 @@ namespace BattleFieldNamespace
         /// <summary>
         /// Reference to the BattleField, for testing purposes
         /// </summary>
-        public BattleField BattleField
+        private BattleField BattleField
         {
             get
             {
@@ -51,7 +51,7 @@ namespace BattleFieldNamespace
         /// Checkings if the input is correct
         /// </summary>
         /// <returns>Number for creating BattleField</returns>
-        private static int InputFieldSize()
+        public static int InputFieldSize()
         {
             int readNumber;
 
@@ -125,7 +125,7 @@ namespace BattleFieldNamespace
         /// When correct input data is set, bomb explosion is performed
         /// If explosion is successful, the battlefield is reprinted
         /// </summary>
-        private void PlayBattleFieldTurn()
+        public void PlayBattleFieldTurn()
         {
             int inputRow = -1;
             int inputColumn = -1;
@@ -167,7 +167,7 @@ namespace BattleFieldNamespace
         /// </summary>
         /// <param name="intputRow">Coordinate for row</param>
         /// <param name="inputColumn">Coordinate for column</param>
-        private void ReadUserInput(ref int intputRow, ref int inputColumn)
+        public void ReadUserInput(ref int intputRow, ref int inputColumn)
         {
             Console.Write("Please Enter Coordinates: ");
 

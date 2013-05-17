@@ -1,0 +1,5 @@
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\Battle-Field-6\bin\Debug\BattleField.exe
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\Battle-Field-6\bin\Debug\BattleField.pdb
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\Battle-Field-6\obj\x86\Debug\BattleFieldGameProject.csprojResolveAssemblyReference.cache
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\Battle-Field-6\obj\x86\Debug\BattleField.exe
+C:\Users\Angel\Documents\GitHub\QC-TeamMercury\Battle-Field-6\obj\x86\Debug\BattleField.pdb
