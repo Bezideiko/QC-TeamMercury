@@ -263,7 +263,7 @@ namespace BattleFieldNamespace
                 return false;
             }
 
-            int explosionPattern = Convert.ToInt32(gameField[row, column]);;
+            int explosionPattern = Convert.ToInt32(gameField[row, column]);
 
             switch (explosionPattern)
             {
