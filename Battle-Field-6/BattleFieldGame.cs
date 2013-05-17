@@ -58,9 +58,15 @@ namespace BattleFieldNamespace
             Console.WriteLine("Welcome to \"Battle Field\" game!");
             Console.Write("Enter battle field size (no more than 10): n = ");
 
-            while (!int.TryParse(Console.ReadLine(), out readNumber) || readNumber <= 0 || readNumber > MaxFieldSize)
+            bool isCorrectlyFormattedInput = false;
+
+            isCorrectlyFormattedInput =  int.TryParse(Console.ReadLine(), out readNumber);
+
+            while (!isCorrectlyFormattedInput || readNumber <= 0 || readNumber > MaxFieldSize)
             {
-                Console.WriteLine("The input is wrong. Please enter an integer - field size (0 < N <= 10): ");
+                Console.WriteLine("The input is wrong. Please enter an integer for field size (0 < N <= 10): ");
+
+                isCorrectlyFormattedInput = int.TryParse(Console.ReadLine(), out readNumber);
             }
 
             return readNumber;
