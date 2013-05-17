@@ -5,6 +5,9 @@ namespace BattleFieldNamespace
 {
     class BattleFieldGame
     {
+        //Maximum Field Size
+        private const int MaxFieldSize = 10;
+
         /// <summary>
         /// The battlefield of the game
         /// </summary>
@@ -41,8 +44,6 @@ namespace BattleFieldNamespace
 
             return new BattleFieldGame(gameFieldSize);
         }
-
-        private const int MaxFieldSize = 10;
 
         /// <summary>
         /// Game Welcome Screen

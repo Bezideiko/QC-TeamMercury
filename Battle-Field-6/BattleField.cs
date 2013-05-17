@@ -88,15 +88,20 @@ namespace BattleFieldNamespace
         private void InitializeEmptyBattleField()
         {
             gameField = new string[gameFieldSize, gameFieldSize];
-            for (int i = 0; i <= gameFieldSize - 1; i++)
+            for (int row = 0; row <= gameFieldSize - 1; row++)
             {
-                for (int j = 0; j <= gameFieldSize - 1; j++)
+                for (int column = 0; column <= gameFieldSize - 1; column++)
                 {
-                    gameField[i, j] = "-";
+                    gameField[row, column] = "-";
                 }
             }
         }
 
+        /// <summary>
+        /// Get random integer in inclusive interval
+        /// </summary>
+        /// <param name="min">minimum result integer number</param>
+        /// <param name="max">maximum result integer number </param>
         private int GetRandomNumberInRange(int min, int max)
         {
             return this.randomGenerator.Next(min, max + 1);
