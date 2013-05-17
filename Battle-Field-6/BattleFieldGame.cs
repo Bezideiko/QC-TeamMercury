@@ -106,7 +106,7 @@ namespace BattleFieldNamespace
             //Main Game Cycle
             while (!(IsGameOver()))
             {
-                PlayBattleField();
+                PlayBattleFieldTurn();
             }
 
             //Display End of Game message
@@ -118,7 +118,7 @@ namespace BattleFieldNamespace
         /// When correct input data is set, bomb explosion is performed
         /// If explosion is successful, the battlefield is reprinted
         /// </summary>
-        private void PlayBattleField()
+        private void PlayBattleFieldTurn()
         {
             int inputRow = -1;
             int inputColumn = -1;
