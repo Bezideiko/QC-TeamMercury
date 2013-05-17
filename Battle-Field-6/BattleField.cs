@@ -159,9 +159,7 @@ namespace BattleFieldNamespace
         //Explosion patterns
         public void ExplosionPatternOne(int row, int column)
         {
-            gameField[row, column] = "X";
-            removedBombsCount++;
-
+            RemoveBombIfPossible(row, column);
             RemoveBombIfPossible(row - 1, column - 1);
             RemoveBombIfPossible(row + 1, column - 1);
             RemoveBombIfPossible(row - 1, column + 1);
@@ -170,17 +168,25 @@ namespace BattleFieldNamespace
 
         public void ExplosionPatternTwo(int row, int column)
         {
-            ExplosionPatternOne(row, column);
+            for (int rowIndex = row - 1; rowIndex <= row + 1; rowIndex++)
+            {
+                for (int columnIndex = column - 1; columnIndex <= column + 1; columnIndex++)
+                {
+                    RemoveBombIfPossible(rowIndex, columnIndex);
+                }
+            }
 
-            RemoveBombIfPossible(row - 1, column);
-            RemoveBombIfPossible(row, column - 1);
-            RemoveBombIfPossible(row, column + 1);
-            RemoveBombIfPossible(row + 1, column);
         }
 
         public void ExplosionPatternThree(int row, int column)
         {
-            ExplosionPatternTwo(row, column);
+            for (int rowIndex = row - 1; rowIndex <= row + 1; rowIndex++)
+            {
+                for (int columnIndex = column - 1; columnIndex <= column + 1; columnIndex++)
+                {
+                    RemoveBombIfPossible(rowIndex, columnIndex);
+                }
+            }
 
             RemoveBombIfPossible(row - 2, column);
             RemoveBombIfPossible(row, column - 2);
@@ -190,27 +196,32 @@ namespace BattleFieldNamespace
 
         public void ExplosionPatternFour(int row, int column)
         {
-            ExplosionPatternThree(row, column);
+            for (int rowIndex = row - 1; rowIndex <= row + 1; rowIndex++)
+            {
+                for (int columnIndex = column - 2; columnIndex <= column + 2; columnIndex++)
+                {
+                    RemoveBombIfPossible(rowIndex, columnIndex);
+                }
+            }
 
-            RemoveBombIfPossible(row - 1, column - 2);
-            RemoveBombIfPossible(row + 1, column - 2);
             RemoveBombIfPossible(row - 2, column - 1);
-            RemoveBombIfPossible(row + 2, column - 1);
+            RemoveBombIfPossible(row - 2, column);
             RemoveBombIfPossible(row - 2, column + 1);
+            RemoveBombIfPossible(row + 2, column - 1);
+            RemoveBombIfPossible(row + 2, column);
             RemoveBombIfPossible(row + 2, column + 1);
-            RemoveBombIfPossible(row - 1, column + 2);
-            RemoveBombIfPossible(row + 1, column + 2);
 
         }
 
         public void ExplosionPatternFive(int row, int column)
         {
-            ExplosionPatternFour(row, column);
-
-            RemoveBombIfPossible(row - 2, column - 2);
-            RemoveBombIfPossible(row + 2, column - 2);
-            RemoveBombIfPossible(row - 2, column + 2);
-            RemoveBombIfPossible(row + 2, column + 2);
+            for (int rowIndex = row - 2; rowIndex <= row + 2; rowIndex++)
+            {
+                for (int columnIndex = column - 2; columnIndex <= column + 2; columnIndex++)
+                {
+                    RemoveBombIfPossible(rowIndex, columnIndex);
+                }
+            }
         }
         //End of Explosion Patterns
 
