@@ -148,240 +148,80 @@ namespace BattleFieldNamespace
         {
             gameField[row, column] = "X";
             removedBombsCount++;
-            if ((row - 1 >= 0) && (column - 1 >= 0))
-            {
-                if (gameField[row - 1, column - 1] != "X" && gameField[row - 1, column - 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 1, column - 1] = "X";
-            }
 
-            if ((row + 1 <= gameFieldSize - 1) && (column - 1 >= 0))
-            {
-                if (gameField[row + 1, column - 1] != "X" && gameField[row + 1, column - 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 1, column - 1] = "X";
-            }
-
-            if ((row - 1 >= 0) && (column + 1 <= gameFieldSize - 1))
-            {
-                if (gameField[row - 1, column + 1] != "X" && gameField[row - 1, column + 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 1, column + 1] = "X";
-            }
-
-            if ((row + 1 <= gameFieldSize - 1) && (column + 1 <= gameFieldSize - 1))
-            {
-                if (gameField[row + 1, column + 1] != "X" && gameField[row + 1, column + 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 1, column + 1] = "X";
-            }
+            RemoveBombIfPossible(row - 1, column - 1);
+            RemoveBombIfPossible(row + 1, column - 1);
+            RemoveBombIfPossible(row - 1, column + 1);
+            RemoveBombIfPossible(row + 1, column + 1);
         }
 
         public void BombTwo(int row, int column)
         {
             BombOne(row, column);
 
-            if (row - 1 >= 0)
-            {
-                if (gameField[row - 1, column] != "X" && gameField[row - 1, column] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 1, column] = "X";
-            }
-
-            if (column - 1 >= 0)
-            {
-                if (gameField[row, column - 1] != "X" && gameField[row, column - 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row, column - 1] = "X";
-            }
-
-            if (column + 1 <= gameFieldSize - 1)
-            {
-                if (gameField[row, column + 1] != "X" && gameField[row, column + 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row, column + 1] = "X";
-            }
-
-            if (row + 1 <= gameFieldSize - 1)
-            {
-                if (gameField[row + 1, column] != "X" && gameField[row + 1, column] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 1, column] = "X";
-            }
+            RemoveBombIfPossible(row - 1, column);
+            RemoveBombIfPossible(row, column - 1);
+            RemoveBombIfPossible(row, column + 1);
+            RemoveBombIfPossible(row + 1, column);
         }
 
         public void BombThree(int row, int column)
         {
             BombTwo(row, column);
 
-            if (row - 2 >= 0)
-            {
-                if (gameField[row - 2, column] != "X" && gameField[row - 2, column] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 2, column] = "X";
-            }
-
-            if (column - 2 >= 0)
-            {
-                if (gameField[row, column - 2] != "X" && gameField[row, column - 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row, column - 2] = "X";
-            }
-
-            if (column + 2 <= gameFieldSize - 1)
-            {
-                if (gameField[row, column + 2] != "X" && gameField[row, column + 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row, column + 2] = "X";
-            }
-
-            if (row + 2 <= gameFieldSize - 1)
-            {
-                if (gameField[row + 2, column] != "X" && gameField[row + 2, column] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 2, column] = "X";
-            }
+            RemoveBombIfPossible(row - 2, column);
+            RemoveBombIfPossible(row, column - 2);
+            RemoveBombIfPossible(row, column + 2);
+            RemoveBombIfPossible(row + 2, column);
         }
 
         public void BombFour(int row, int column)
         {
             BombThree(row, column);
 
-            if ((row - 1 >= 0) && (column - 2 >= 0))
-            {
-                if (gameField[row - 1, column - 2] != "X" && gameField[row - 1, column - 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 1, column - 2] = "X";
-            }
+            RemoveBombIfPossible(row - 1, column - 2);
+            RemoveBombIfPossible(row + 1, column - 2);
+            RemoveBombIfPossible(row - 2, column - 1);
+            RemoveBombIfPossible(row + 2, column - 1);
+            RemoveBombIfPossible(row - 2, column + 1);
+            RemoveBombIfPossible(row + 2, column + 1);
+            RemoveBombIfPossible(row - 1, column + 2);
+            RemoveBombIfPossible(row + 1, column + 2);
 
-            if ((row + 1 <= gameFieldSize - 1) && (column - 2 >= 0))
-            {
-                if (gameField[row + 1, column - 2] != "X" && gameField[row + 1, column - 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 1, column - 2] = "X";
-            }
-
-            if ((row - 2 >= 0) && (column - 1 >= 0))
-            {
-                if (gameField[row - 2, column - 1] != "X" && gameField[row - 2, column - 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 2, column - 1] = "X";
-            }
-
-            if ((row + 2 <= gameFieldSize - 1) && (column - 1 >= 0))
-            {
-                if (gameField[row + 2, column - 1] != "X" && gameField[row + 2, column - 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 2, column - 1] = "X";
-            }
-
-            if ((row - 1 >= 0) && (column + 2 <= gameFieldSize - 1))
-            {
-                if (gameField[row - 1, column + 2] != "X" && gameField[row - 1, column + 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 1, column + 2] = "X";
-            }
-
-            if ((row + 1 <= gameFieldSize - 1) && (column + 2 <= gameFieldSize - 1))
-            {
-                if (gameField[row + 1, column + 2] != "X" && gameField[row + 1, column + 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 1, column + 2] = "X";
-            }
-
-            if ((row - 2 >= 0) && (column + 1 <= gameFieldSize - 1))
-            {
-                if (gameField[row - 2, column + 1] != "X" && gameField[row - 2, column + 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 2, column + 1] = "X";
-            }
-
-            if ((row + 2 <= gameFieldSize - 1) && (column + 1 <= gameFieldSize - 1))
-            {
-                if (gameField[row + 2, column + 1] != "X" && gameField[row + 2, column + 1] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 2, column + 1] = "X";
-            }
         }
 
         public void BombFive(int row, int column)
         {
             BombFour(row, column);
 
-            if ((row - 2 >= 0) && (column - 2 >= 0))
+            RemoveBombIfPossible(row - 2, column - 2);
+            RemoveBombIfPossible(row + 2, column - 2);
+            RemoveBombIfPossible(row - 2, column + 2);
+            RemoveBombIfPossible(row + 2, column + 2);
+        }
+
+        /// <summary>
+        /// Removing Bomb from position on the battleField
+        /// </summary>
+        private void RemoveBombIfPossible(int row, int column)
+        {
+            //Check for correct position
+            if (row < 0 || row > this.gameFieldSize - 1)
             {
-                if (gameField[row - 2, column - 2] != "X" && gameField[row - 2, column - 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 2, column - 2] = "X";
+                return;
             }
 
-            if ((row + 2 <= gameFieldSize - 1) && (column - 2 >= 0))
+            if (column < 0 || column > this.gameFieldSize - 1)
             {
-                if (gameField[row + 2, column - 2] != "X" && gameField[row + 2, column - 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 2, column - 2] = "X";
+                return;
             }
 
-            if ((row - 2 >= 0) && (column + 2 <= gameFieldSize - 1))
+            //Check for a Bomb
+            if (gameField[row, column] != "X" && gameField[row, column] != "-")
             {
-                if (gameField[row - 2, column + 2] != "X" && gameField[row - 2, column + 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row - 2, column + 2] = "X";
-            }
-
-            if ((row + 2 <= gameFieldSize - 1) && (column + 2 <= gameFieldSize - 1))
-            {
-                if (gameField[row + 2, column + 2] != "X" && gameField[row + 2, column + 2] != "-")
-                {
-                    removedBombsCount++;
-                }
-                gameField[row + 2, column + 2] = "X";
+                //Remove a Bomb
+                this.removedBombsCount++;
+                gameField[row, column] = "X";
             }
         }
 
