@@ -33,6 +33,9 @@ namespace BattleFieldNamespace
             this.randomGenerator = new Random();
         }
 
+        /// <summary>
+        /// Initial Bombs located on the BattleField
+        /// </summary>
         public int InitialBombsCount
         {
             get
@@ -41,6 +44,9 @@ namespace BattleFieldNamespace
             }
         }
 
+        /// <summary>
+        /// CurrentDetonatedBombs by the user
+        /// </summary>
         public int DetonatedBombs
         {
             get
@@ -49,6 +55,9 @@ namespace BattleFieldNamespace
             }
         }
 
+        /// <summary>
+        /// Current total bombs detonated, from the user and from secondary explosions
+        /// </summary>
         public int RemovedBombsCount
         {
             get
@@ -57,6 +66,9 @@ namespace BattleFieldNamespace
             }
         }
 
+        /// <summary>
+        /// Size of the Battle Field
+        /// </summary>
         public int GameFieldSize
         {
             get
@@ -67,7 +79,6 @@ namespace BattleFieldNamespace
 
         ///<summary>
         ///Property for accessing Game Field elements
-        ///needed for testing purposes
         ///</summary>
         public string this[int indexRow, int indexCol]
         {
@@ -78,9 +89,7 @@ namespace BattleFieldNamespace
         }
 
         /// <summary>
-        /// Initializying Battle Field
-        /// by initializing firstly empty battle field
-        /// and after generating random battle field
+        /// Initializying Battle Field with randomly placed bombs with ration 15%-30%
         /// </summary>
         public void InitilizeBattleField()
         {
@@ -89,6 +98,9 @@ namespace BattleFieldNamespace
             this.GenerateRandomBattleField();
         }
 
+        /// <summary>
+        /// Initializying empty Battle Field
+        /// </summary>
         private void InitializeEmptyBattleField()
         {
             gameField = new string[gameFieldSize, gameFieldSize];
@@ -112,7 +124,7 @@ namespace BattleFieldNamespace
         }
 
         /// <summary>
-        /// Generating random Battle Field
+        /// Fill Battle Field with Bombs (with ration 15%-30%) on random positions
         /// </summary>
         private void GenerateRandomBattleField()
         {
@@ -144,7 +156,8 @@ namespace BattleFieldNamespace
             this.initialBombsCount = bombsAdded;
         }
 
-        public void BombOne(int row, int column)
+        //Explosion patterns
+        public void ExplosionPatternOne(int row, int column)
         {
             gameField[row, column] = "X";
             removedBombsCount++;
@@ -155,9 +168,9 @@ namespace BattleFieldNamespace
             RemoveBombIfPossible(row + 1, column + 1);
         }
 
-        public void BombTwo(int row, int column)
+        public void ExplosionPatternTwo(int row, int column)
         {
-            BombOne(row, column);
+            ExplosionPatternOne(row, column);
 
             RemoveBombIfPossible(row - 1, column);
             RemoveBombIfPossible(row, column - 1);
@@ -165,9 +178,9 @@ namespace BattleFieldNamespace
             RemoveBombIfPossible(row + 1, column);
         }
 
-        public void BombThree(int row, int column)
+        public void ExplosionPatternThree(int row, int column)
         {
-            BombTwo(row, column);
+            ExplosionPatternTwo(row, column);
 
             RemoveBombIfPossible(row - 2, column);
             RemoveBombIfPossible(row, column - 2);
@@ -175,9 +188,9 @@ namespace BattleFieldNamespace
             RemoveBombIfPossible(row + 2, column);
         }
 
-        public void BombFour(int row, int column)
+        public void ExplosionPatternFour(int row, int column)
         {
-            BombThree(row, column);
+            ExplosionPatternThree(row, column);
 
             RemoveBombIfPossible(row - 1, column - 2);
             RemoveBombIfPossible(row + 1, column - 2);
@@ -190,18 +203,19 @@ namespace BattleFieldNamespace
 
         }
 
-        public void BombFive(int row, int column)
+        public void ExplosionPatternFive(int row, int column)
         {
-            BombFour(row, column);
+            ExplosionPatternFour(row, column);
 
             RemoveBombIfPossible(row - 2, column - 2);
             RemoveBombIfPossible(row + 2, column - 2);
             RemoveBombIfPossible(row - 2, column + 2);
             RemoveBombIfPossible(row + 2, column + 2);
         }
+        //End of Explosion Patterns
 
         /// <summary>
-        /// Removing Bomb from position on the battleField
+        /// Removing a bomb from position on the battleField
         /// </summary>
         private void RemoveBombIfPossible(int row, int column)
         {
@@ -226,10 +240,9 @@ namespace BattleFieldNamespace
         }
 
         /// <summary>
-        /// Performing bomb explosion
-        /// Initially we admit the explosion is successfull
+        /// Performing user initiated bomb explosion
         /// </summary>
-        /// <returns>Is the explosion successfull or not</returns>
+        /// <returns>Return true if the explosion was successfull</returns>
         public bool MineCell(int row, int column)
         {
             bool isExplosionSuccessfull = true;
@@ -248,31 +261,31 @@ namespace BattleFieldNamespace
             {
                 case 1:
                     {
-                        BombOne(row, column);
+                        ExplosionPatternOne(row, column);
                         detonatedBombs++;
                         break;
                     }
                 case 2:
                     {
-                        BombTwo(row, column);
+                        ExplosionPatternTwo(row, column);
                         detonatedBombs++;
                         break;
                     }
                 case 3:
                     {
-                        BombThree(row, column);
+                        ExplosionPatternThree(row, column);
                         detonatedBombs++;
                         break;
                     }
                 case 4:
                     {
-                        BombFour(row, column);
+                        ExplosionPatternFour(row, column);
                         detonatedBombs++;
                         break;
                     }
                 case 5:
                     {
-                        BombFive(row, column);
+                        ExplosionPatternFive(row, column);
                         detonatedBombs++;
                         break;
                     }
