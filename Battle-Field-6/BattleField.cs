@@ -6,6 +6,10 @@ namespace BattleFieldNamespace
 {
     internal class BattleField
     {
+        //Restrictions on Bomb Ratio
+        private const double MaxBombRation = 0.3;
+        private const double MinBombRatio = 0.15;
+
         private string[,] gameField;
 
         private readonly int gameFieldSize;
@@ -115,8 +119,9 @@ namespace BattleFieldNamespace
             int row;
             int column;
             int bombsAdded = 0;
+            int stopGeneration = 0;
 
-            while (bombsAdded + 1 <= 0.3 * gameFieldSize * gameFieldSize)
+            while (bombsAdded + 1 <= MaxBombRation * gameFieldSize * gameFieldSize)
             {
                 row = GetRandomNumberInRange(0, gameFieldSize - 1);
                 column = GetRandomNumberInRange(0, gameFieldSize - 1);
@@ -125,11 +130,10 @@ namespace BattleFieldNamespace
                 {
                     gameField[row, column] = Convert.ToString(GetRandomNumberInRange(1, 5));
                     bombsAdded++;
-
-                    if (bombsAdded >= 0.15 * gameFieldSize * gameFieldSize)
+                    if (bombsAdded >= MinBombRatio * gameFieldSize * gameFieldSize)
                     {
-                        int stopFilling = GetRandomNumberInRange(0, 1);
-                        if (stopFilling == 1)
+                        stopGeneration = GetRandomNumberInRange(0, 1);
+                        if (stopGeneration == 1)
                         {
                             break;
                         }
@@ -453,25 +457,25 @@ namespace BattleFieldNamespace
             resultString.Append(Environment.NewLine);
             resultString.Append("   ");
 
-            for (int k = 0; k <= gameFieldSize - 1; k++)
+            for (int topIndex = 0; topIndex <= gameFieldSize - 1; topIndex++)
             {
-                resultString.Append(k).Append(" ");
+                resultString.Append(topIndex).Append(" ");
             }
             resultString.Append(Environment.NewLine);
             resultString.Append("   ");
 
-            for (int k = 0; k <= gameFieldSize - 1; k++)
+            for (int index = 0; index <= gameFieldSize - 1; index++)
             {
                 resultString.Append("--");
             }
             resultString.Append(Environment.NewLine);
 
-            for (int i = 0; i <= gameFieldSize - 1; i++)
+            for (int rowIndex = 0; rowIndex <= gameFieldSize - 1; rowIndex++)
             {
-                resultString.Append(i).Append("| ");
-                for (int j = 0; j <= gameFieldSize - 1; j++)
+                resultString.Append(rowIndex).Append("| ");
+                for (int columnIndex = 0; columnIndex <= gameFieldSize - 1; columnIndex++)
                 {
-                    resultString.Append(gameField[i, j]).Append(" ");
+                    resultString.Append(gameField[rowIndex, columnIndex]).Append(" ");
                 }
 
                 resultString.Append(Environment.NewLine);
