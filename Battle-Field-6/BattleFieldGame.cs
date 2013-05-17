@@ -4,6 +4,10 @@ using System.Linq;
 
 namespace BattleFieldNamespace
 {
+    /// <summary>
+    /// console-based implementation of the game "Battle Field" in which the player tries to clean 
+    /// a matrix of numbers and empty cells by series of explosions which detonate areas of different sizes. 
+    /// </summary>
     public class BattleFieldGame
     {
         //Maximum Field Size
@@ -20,17 +24,6 @@ namespace BattleFieldNamespace
         public BattleFieldGame(int battleFieldSize)
         {
             this.battleField = new BattleField(battleFieldSize);
-        }
-
-        /// <summary>
-        /// Reference to the BattleField, for testing purposes
-        /// </summary>
-        private BattleField BattleField
-        {
-            get
-            {
-                return this.battleField;
-            }
         }
 
         /// <summary>
@@ -108,7 +101,7 @@ namespace BattleFieldNamespace
             //Initialize BattleField
             this.battleField.InitilizeBattleField();
 
-            Debug.Assert(this.battleField.GameFieldSize > 0 && this.battleField.GameFieldSize < MaxFieldSize);
+            Debug.Assert(this.battleField.GameFieldSize > 0 && this.battleField.GameFieldSize <= MaxFieldSize);
 
             //Initial display of the battleField
             Console.WriteLine(this.battleField.ToString());
@@ -140,7 +133,7 @@ namespace BattleFieldNamespace
             }
             catch (FormatException formatException)
             {
-                Console.WriteLine("Input in incorrect format. Please use the followin format: [number number]");
+                Console.WriteLine(formatException.Message);
                 return;
             }
 
@@ -179,19 +172,19 @@ namespace BattleFieldNamespace
 
             if ((rowAndColumnSplit.Length) != 2)
             {
-                throw new FormatException("Input in wrong format.");
+                throw new FormatException("Input in incorrect format. Please use the followin format: [number number]");
             }
 
             bool isInputRowInCorrectFormat = int.TryParse(rowAndColumnSplit[0], out intputRow);
             if (!isInputRowInCorrectFormat)
             {
-                throw new FormatException("Input in wrong format.");
+                throw new FormatException("Input in incorrect format. Please use the followin format: [number number]");
             }
 
             bool isInputColumnInCorrectFormat = int.TryParse(rowAndColumnSplit[1], out inputColumn);
             if (!isInputColumnInCorrectFormat)
             {
-                throw new FormatException("Input in wrong format.");
+                throw new FormatException("Input in incorrect format. Please use the followin format: [number number]");
             }
 
         }

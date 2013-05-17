@@ -10,18 +10,28 @@ namespace BattleFieldNamespace
         private const double MaxBombRation = 0.3;
         private const double MinBombRatio = 0.15;
 
+        //BattleField
         private string[,] gameField;
 
+        //size for the BattleField
         private readonly int gameFieldSize;
 
+        //removed bombs so far
         private int removedBombsCount = 0;
 
+        //user detonated bombs
         private int detonatedBombs = 0;
 
         private readonly Random randomGenerator;
 
         //readonly since it is never changed
         private int initialBombsCount;
+
+        //delegate for explosion patterns
+        public delegate void ExplosionPatternsDelegate(int row, int column);
+
+        //array of explosion patterns methods
+        private readonly ExplosionPatternsDelegate[] explosionPatterns = new ExplosionPatternsDelegate[5];
 
         /// <summary>
         /// Constructor for new Battle Field
@@ -31,6 +41,12 @@ namespace BattleFieldNamespace
         {
             this.gameFieldSize = battleFieldSize;
             this.randomGenerator = new Random();
+
+            explosionPatterns[0] = this.ExplosionPatternOne;
+            explosionPatterns[1] = this.ExplosionPatternTwo;
+            explosionPatterns[2] = this.ExplosionPatternThree;
+            explosionPatterns[3] = this.ExplosionPatternFour;
+            explosionPatterns[4] = this.ExplosionPatternFive;
         }
 
         /// <summary>
@@ -265,34 +281,7 @@ namespace BattleFieldNamespace
 
             int explosionPattern = Convert.ToInt32(gameField[row, column]);
 
-            switch (explosionPattern)
-            {
-                case 1:
-                    {
-                        ExplosionPatternOne(row, column);
-                        break;
-                    }
-                case 2:
-                    {
-                        ExplosionPatternTwo(row, column);
-                        break;
-                    }
-                case 3:
-                    {
-                        ExplosionPatternThree(row, column);
-                        break;
-                    }
-                case 4:
-                    {
-                        ExplosionPatternFour(row, column);
-                        break;
-                    }
-                case 5:
-                    {
-                        ExplosionPatternFive(row, column);
-                        break;
-                    }
-            }
+            explosionPatterns[explosionPattern - 1](row, column);
 
             this.detonatedBombs++;
 
