@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace BattleFieldNamespace
@@ -107,13 +108,15 @@ namespace BattleFieldNamespace
             //Initialize BattleField
             this.battleField.InitilizeBattleField();
 
+            Debug.Assert(this.battleField.GameFieldSize > 0 && this.battleField.GameFieldSize < MaxFieldSize);
+
             //Initial display of the battleField
             Console.WriteLine(this.battleField.ToString());
 
             //Main Game Cycle
             while (!(IsGameOver()))
             {
-                PlayBattleFieldTurn();
+                PlayBattleFieldGameTurn();
             }
 
             //Display End of Game message
@@ -125,7 +128,7 @@ namespace BattleFieldNamespace
         /// When correct input data is set, bomb explosion is performed
         /// If explosion is successful, the battlefield is reprinted
         /// </summary>
-        public void PlayBattleFieldTurn()
+        public void PlayBattleFieldGameTurn()
         {
             int inputRow = -1;
             int inputColumn = -1;
