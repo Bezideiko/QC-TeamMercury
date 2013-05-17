@@ -129,21 +129,36 @@ namespace BattleFieldNamespace
             int inputRow = -1;
             int inputColumn = -1;
 
-            bool isCorrectUserInput = this.ReadUserInput(ref inputRow, ref inputColumn);
-
-            if (isCorrectUserInput)
+            //Read User's input
+            try
             {
-                bool isExplosionSuccessfull = this.battleField.MineCell(inputRow, inputColumn);
-
-                if (isExplosionSuccessfull)
-                {
-                    Console.WriteLine(this.battleField.ToString());
-                }
-                else
-                {
-                    Console.WriteLine("Invalid move!");
-                }
+                this.ReadUserInput(ref inputRow, ref inputColumn);
             }
+            catch (FormatException formatException)
+            {
+                Console.WriteLine("Input in incorrect format. Please use the followin format: [number number]");
+                return;
+            }
+
+            //Validate User's input
+            if (!IsInputCoordinatesInRange(inputRow, inputColumn))
+            {
+                Console.WriteLine("Invalid coordinates entered. Please enter valid coordinates.");
+                return;
+            }
+
+            //Perform explosion
+            bool isExplosionSuccessfull = this.battleField.MineCell(inputRow, inputColumn);
+
+            if (isExplosionSuccessfull)
+            {
+                Console.WriteLine(this.battleField.ToString());
+            }
+            else
+            {
+                Console.WriteLine("Invalid move!");
+            }
+
         }
 
         /// <summary>
@@ -151,39 +166,30 @@ namespace BattleFieldNamespace
         /// </summary>
         /// <param name="intputRow">Coordinate for row</param>
         /// <param name="inputColumn">Coordinate for column</param>
-        private bool ReadUserInput(ref int intputRow, ref int inputColumn)
+        private void ReadUserInput(ref int intputRow, ref int inputColumn)
         {
             Console.Write("Please Enter Coordinates: ");
 
             string inputRowAndColumn = Console.ReadLine();
             string[] rowAndColumnSplit = inputRowAndColumn.Split(' ');
 
-            if ((rowAndColumnSplit.Length) <= 1)
+            if ((rowAndColumnSplit.Length) != 2)
             {
-                intputRow = -1;
-                inputColumn = -1;
-            }
-            else
-            {
-                if (!(int.TryParse(rowAndColumnSplit[0], out intputRow)))
-                {
-                    intputRow = -1;
-                }
-
-                if (!(int.TryParse(rowAndColumnSplit[1], out inputColumn)))
-                {
-                    inputColumn = -1;
-                }
+                throw new FormatException("Input in wrong format.");
             }
 
-            if (IsInputCoordinatesInRange(intputRow, inputColumn))
+            bool isInputRowInCorrectFormat = int.TryParse(rowAndColumnSplit[0], out intputRow);
+            if (!isInputRowInCorrectFormat)
             {
-                return true;
+                throw new FormatException("Input in wrong format.");
             }
-            else
+
+            bool isInputColumnInCorrectFormat = int.TryParse(rowAndColumnSplit[1], out inputColumn);
+            if (!isInputColumnInCorrectFormat)
             {
-                return false;
+                throw new FormatException("Input in wrong format.");
             }
+
         }
 
         /// <summary>
