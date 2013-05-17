@@ -242,61 +242,50 @@ namespace BattleFieldNamespace
         /// <summary>
         /// Performing user initiated bomb explosion
         /// </summary>
-        /// <returns>Return true if the explosion was successfull</returns>
+        /// <returns>Return true if the explosion was successfull, false if no bomb is hit.</returns>
         public bool MineCell(int row, int column)
         {
-            bool isExplosionSuccessfull = true;
-            int cellNumber;
-
+            //Check whether a bomb is hit
             if ((gameField[row, column] == "X") || ((gameField[row, column]) == "-"))
             {
-                cellNumber = 0;
-            }
-            else
-            {
-                cellNumber = Convert.ToInt32(gameField[row, column]);
+                //If no bomb is hit return false
+                return false;
             }
 
-            switch (cellNumber)
+            int explosionPattern = Convert.ToInt32(gameField[row, column]);;
+
+            switch (explosionPattern)
             {
                 case 1:
                     {
                         ExplosionPatternOne(row, column);
-                        detonatedBombs++;
                         break;
                     }
                 case 2:
                     {
                         ExplosionPatternTwo(row, column);
-                        detonatedBombs++;
                         break;
                     }
                 case 3:
                     {
                         ExplosionPatternThree(row, column);
-                        detonatedBombs++;
                         break;
                     }
                 case 4:
                     {
                         ExplosionPatternFour(row, column);
-                        detonatedBombs++;
                         break;
                     }
                 case 5:
                     {
                         ExplosionPatternFive(row, column);
-                        detonatedBombs++;
-                        break;
-                    }
-                default:
-                    {
-                        isExplosionSuccessfull = false;
                         break;
                     }
             }
 
-            return isExplosionSuccessfull;
+            this.detonatedBombs++;
+
+            return true;
         }
 
         /// <summary>
